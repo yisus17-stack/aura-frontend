@@ -1,0 +1,110 @@
+/* CONTENEDOR CON SCROLL Y BORDES REDONDEADOS */
+.table-scroll-container {
+  width: 100%;
+  overflow-x: auto; /* Permite scroll horizontal en móvil */
+  border: 1px solid #e8ecf1; /* El borde gris claro de la imagen */
+  border-radius: 7px; /* Redondeado total de la tabla */
+  background: #ffffff;
+}
+
+/* LA TABLA */
+.aura-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 600px; /* Evita que las columnas se aplasten en móvil */
+}
+
+/* HEADER (ENCABEZADO) */
+.aura-thead {
+  background-color:#9b89b5/* Fondo blanco como en la imagen */
+
+} 
+/*al presionar el header no se vea blanco, sino el mismo color de hover para que no cambie agregar funcion*/
+
+
+
+.aura-th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: white; /* Texto morado como en la imagen */
+  text-transform: capitalize;
+}
+
+/* FILAS */
+.aura-tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Quitar el borde a la última fila para no romper el redondeado inferior */
+.aura-tr:last-child {
+  border-bottom: none;
+}
+
+.aura-tr:hover {
+  background-color: #f3f5f8; /* Efecto hover sutil */
+}
+.aura-thead,
+.aura-thead tr,
+.aura-thead th {
+  background-color: #9b89b5 !important;
+  color: white;
+}
+
+/* CELDAS */
+.aura-td {
+  padding: 16px 20px;
+  vertical-align: middle;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+/* BOTONES DE ACCIÓN (ESTILO IMAGEN) solo es un botón eliminar */
+.action-buttons {
+    display: flex;
+    justify-content: left
+
+}
+
+
+
+/* Botón Editar (Blanco con borde) */
+.btn-edit-aura {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-edit-aura:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* PERSONALIZACIÓN DEL SCROLLBAR (Para que no se vea feo en Windows) */
+.table-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}

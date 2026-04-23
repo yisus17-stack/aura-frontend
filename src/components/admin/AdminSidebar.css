@@ -1,0 +1,281 @@
+:root {
+  --aura-purple: #8b79a5;
+  --aura-purple-dark: #2d2639;
+  --aura-purple-soft: #f4f2f7;
+  --text-main: #1e293b;
+  --text-sub: #94a3b8;
+  --sidebar-expanded-width: 260px;
+  --sidebar-collapsed-width: 80px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === ESTILOS BASE / DESKTOP === */
+.aura-sidebar {
+  width: var(--sidebar-expanded-width);
+  height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f1f5f9;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  transition: var(--transition);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* Estado Colapsado en Escritorio */
+.aura-sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-header {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+.aura-sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.side-logo img {
+  width: 130px;
+  height: auto;
+  transition: var(--transition);
+}
+
+.aura-sidebar.collapsed .side-logo img {
+  display: none; /* Ocultar logo en desktop colapsado */
+}
+
+.collapse-btn {
+  background: var(--aura-purple-soft);
+  border: none;
+  cursor: pointer;
+  color: var(--aura-purple);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.collapse-btn:hover {
+  background: var(--aura-purple);
+  color: white;
+}
+
+/* MENU */
+.aura-menu {
+  flex-grow: 1;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.aura-sidebar.collapsed .aura-menu {
+  padding: 0;
+  align-items: center;
+}
+
+.menu-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin: 25px 0 10px 12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.aura-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 4px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.aura-sidebar.collapsed .aura-menu-item {
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  margin: 0 auto 8px auto;
+}
+
+.aura-menu-item:hover, .aura-menu-item.active {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+}
+
+.aura-menu-item.active {
+  border-right: 3px solid var(--aura-purple);
+  border-radius: 12px 4px 4px 12px;
+}
+
+/* FOOTER */
+.aura-sidebar-footer {
+  padding: 20px 12px;
+}
+
+.aura-sidebar.collapsed .aura-sidebar-footer {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-card {
+  background: var(--aura-purple);
+  border-radius: 14px;
+  transition: var(--transition);
+}
+
+.aura-sidebar.collapsed .logout-card {
+  background: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.full-logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.aura-sidebar.collapsed .full-logout-btn {
+  color: var(--aura-purple);
+  background: var(--aura-purple-soft);
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+/* OCULTAR TEXTO AL COLAPSAR (PC) */
+.aura-sidebar.collapsed .menu-text, 
+.aura-sidebar.collapsed .menu-label {
+  display: none;
+}
+
+/* === ESTILOS PARA EL DRAWER MÓVIL === */
+
+/* Barra superior que solo sale en móvil */
+.mobile-top-bar {
+  display: none; 
+  padding: 10px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.mobile-logo-img {
+  width: 90px;
+}
+
+.mobile-toggle-btn {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Fondo oscuro al abrir el menú */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+
+}
+
+/* MEDIA QUERY PARA MÓVIL */
+@media (max-width: 768px) {
+  .mobile-top-bar {
+    display: flex;
+  }
+
+  .aura-sidebar {
+    position: fixed;
+    left: -100%; /* Escondido a la izquierda */
+    top: 0;
+    width: 280px !important; /* Forzamos ancho completo en el Drawer */
+    height: 100vh;
+    z-index: 1002;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    transition: left 0.4s ease;
+  }
+
+  /* Cuando el estado mobileOpen es true en React */
+  .aura-sidebar.mobile-open {
+    left: 0;
+  }
+
+  /* FORZAR VISIBILIDAD: Ignora el estado 'collapsed' de PC en el Drawer móvil */
+  .aura-sidebar.mobile-open .menu-text, 
+  .aura-sidebar.mobile-open .menu-label,
+  .aura-sidebar.mobile-open .side-logo img {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .aura-sidebar.mobile-open .aura-menu {
+    padding: 0 12px !important;
+    align-items: flex-start !important;
+  }
+
+  .aura-sidebar.mobile-open .aura-menu-item {
+    justify-content: flex-start !important;
+    width: 100% !important;
+    padding: 12px 14px !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  .aura-sidebar.mobile-open .logout-card {
+    background: var(--aura-purple) !important;
+    margin: 0 12px !important;
+  }
+
+  .aura-sidebar.mobile-open .full-logout-btn {
+    width: 100% !important;
+    background: transparent !important;
+    color: white !important;
+    height: auto !important;
+    padding: 12px !important;
+  }
+}

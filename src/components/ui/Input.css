@@ -1,0 +1,31 @@
+/* Input.css */
+.form-group {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 15px 20px 15px 20px; /* Espacio para el icono */
+  background: #fcfcfc;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  color: #888;
+  outline: none;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.input:focus {
+  background: #fafafa;
+}
+
+/* Iconos dentro del input (ajusta tu Input.jsx para recibirlos) */
+.input-icon {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+}

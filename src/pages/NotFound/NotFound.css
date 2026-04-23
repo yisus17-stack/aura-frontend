@@ -1,0 +1,54 @@
+.not-found-page {
+  /* Usamos min-height para asegurar que ocupe toda la pantalla */
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Esto es lo que centra verticalmente */
+  margin-top: -50px;
+  background-color: #fcfcfd;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.error-title {
+  font-size: clamp(8rem, 20vw, 12rem); /* Lo hacemos un poco más imponente */
+  margin: 0;
+  color: #8b79a5; 
+  font-weight: 800;
+  letter-spacing: -4px;
+  line-height: 1;
+}
+
+.error-subtitle {
+  color: #4a4a4a;
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.error-description {
+  color: #888;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  max-width: 450px;
+  line-height: 1.5;
+}
+
+.aura-btn-link {
+  color: #8b79a5;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 30px;
+  border: 2px solid #8b79a5;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.aura-btn-link:hover {
+  background-color: #8b79a5;
+  color: white;
+
+}

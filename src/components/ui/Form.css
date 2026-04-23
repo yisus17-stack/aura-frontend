@@ -1,0 +1,183 @@
+:root {
+  --aura-purple: #8b79a5;
+  --aura-bg: #fcfcfd;
+  --aura-dark: #1a1a1b;
+  --text-soft: #86868b;
+  --border-light: #ececef;
+}
+
+/* 1. Contenedor Base */
+.form-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: white;
+  overflow: hidden;
+}
+
+/* 2. LADO IZQUIERDO: El panel del logo */
+.form-left-panel {
+  flex: 1;
+  background-color: var(--aura-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* El Logo Blanco Centrado */
+.form-left-panel::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  
+  /* 1. Propiedades con prefijo para Chrome, Safari y versiones viejas de Edge */
+  -webkit-mask-image: url('../../assets/aura-bl.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  /* 2. Propiedades estándar para Firefox y navegadores modernos (Soporte 53+) */
+  mask-image: url('../../assets/aura-bl.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+
+  /* Color y visibilidad */
+  background-color: white; 
+  opacity: 1;
+}
+
+/* 3. LADO DERECHO: Área del Formulario */
+.custom-form-card {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  background: white;
+  position: relative;
+}
+
+/* Botón de Inicio */
+.back-home-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--aura-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 50;
+  transition: all 0.2s;
+}
+
+.back-home-btn:hover {
+  background: var(--aura-bg);
+  border-color: var(--aura-purple);
+}
+
+/* 4. Segmented Control */
+.segmented-control {
+  display: flex;
+  width: 100%;
+  max-width: 450px;
+  background: var(--aura-bg);
+  padding: 6px;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  margin-bottom: 40px;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+  background: white;
+  color: var(--aura-purple);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 5. Estructura Estática */
+.form-fixed-height {
+  width: 100%;
+  max-width: 450px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+  padding-top: 20px;
+}
+
+.btn-aura {
+  background: var(--aura-purple);
+  color: white;
+  padding: 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 30px;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+
+.btn-aura:hover {
+  opacity: 0.9;
+}
+
+.form-alt-footer {
+  margin-top: 30px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.form-alt-footer a {
+  color: var(--aura-purple);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+/* 6. Responsivo */
+@media (max-width: 1100px) {
+  .form-left-panel { display: none; }
+  .custom-form-card { flex: 1; padding: 40px 20px; }
+  .back-home-btn { left: 20px; right: auto; }
+}

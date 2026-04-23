@@ -1,0 +1,54 @@
+/* --- 1. CONFIGURACIÓN GLOBAL & VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Paleta Aura / LUMIA */
+  --primary: #86709e;
+  --primary-light: #f4f1f7;
+  --bg-main: #fcfcfd;
+  --bg-card: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-color: #f3f4f6;
+  --radius: 24px;
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+body {
+  background-color: var(--bg-main);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- 2. COMPONENTES DE LAYOUT (Navbar & Breadcrumbs) --- */
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #eee;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+/* ... (Aquí pegas el resto del código de la sección 2 y 3 que ya tienes) ... */
+
+/* --- 3. BOTONES GLOBALES --- */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.btn-primary:hover { transform: translateY(-2px); }

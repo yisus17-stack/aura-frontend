@@ -1,0 +1,19 @@
+.character-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+.table-footer-simple {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #94a3b8;
+}

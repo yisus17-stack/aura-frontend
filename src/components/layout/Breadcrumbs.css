@@ -1,0 +1,61 @@
+/* --- BREADCRUMBS TIPO CÁPSULA --- */
+.breadcrumb-wrapper {
+  padding: 24px 5% 0; /* Alineado con el padding del Navbar */
+  display: flex;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.breadcrumb-capsule {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 100px; /* Estilo cápsula total */
+  padding: 8px 20px;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.breadcrumb-capsule:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-color: #e5e7eb;
+}
+
+.breadcrumb-segment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 2px 4px;
+}
+
+.breadcrumb-link:hover {
+  color: var(--primary); /* Uso del morado Aura */
+}
+
+.breadcrumb-separator {
+  color: #d1d5db;
+  stroke-width: 2.5; /* Hace que el Chevron se vea más nítido */
+}
+
+.breadcrumb-current {
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 700; /* Resalta la página actual */
+  text-transform: capitalize;
+  padding: 2px 4px;
+}
+
+/* Animación sutil de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

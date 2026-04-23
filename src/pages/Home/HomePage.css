@@ -1,0 +1,148 @@
+/* --- FUNDAMENTOS EXPO --- */
+.expo-home {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- HERO SECTION --- */
+.hero-flat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+}
+
+.logo-static {
+  width: 40%;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  margin-top: -40px;
+}
+
+.hero-title-bold {
+  font-size: clamp(3rem, 7vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  margin-bottom: 24px;
+  margin-top: -10px;
+}
+
+.text-primary {
+  color: #86709e;
+}
+
+.hero-subtitle-flat {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 48px;
+  font-weight: 450;
+}
+
+/* --- BOTONES --- */
+.hero-button-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-black {
+  background: #86709e;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-outline-minimal {
+  background: transparent;
+  color: #000;
+  padding: 14px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid #e1e1e1;
+}
+
+/* --- GRID SYSTEM --- */
+.grid-expo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.grid-expo {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.sub-grid-expo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.expo-card-flat {
+  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+}
+
+/* Colores Pastel Planos */
+.card-purple-flat { background: #faf8fc; min-height: 420px; }
+.card-pink-flat { background: #fff9fa; border-color: #fbe5e9; }
+.card-green-flat { background: #f7fdf9; border-color: #e3f9eb; }
+
+.label-minimal {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.expo-card-flat h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.badge-minimal {
+  background: #000;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.btn-action-flat, .btn-icon-flat {
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-action-flat:hover, .btn-icon-flat:hover {
+  background: #f9f9f9;
+  border-color: #d1d1d1;
+}
+
+@media (max-width: 800px) {
+  .grid-expo { grid-template-columns: 1fr; }
+}

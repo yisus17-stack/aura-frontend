@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import CharacterDetail from './pages/Character/CharacterDetail';
 import Usuarios from './pages/Admin/Usuarios';
 import NotFound from './pages/NotFound/NotFound';
+import SitemapPage from './pages/Sitemap/SitemapPage';
 
 const AppContent = ({ user, setUser }) => {
   const location = useLocation();
@@ -91,7 +92,8 @@ const AppContent = ({ user, setUser }) => {
             }
           />
 
-          {/* 404 */}
+          {/* 404 y Mapa del Sitio */}
+          <Route path="/mapa-del-sitio" element={<SitemapPage />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
 

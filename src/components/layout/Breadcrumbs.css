@@ -1,20 +1,23 @@
-/* --- BREADCRUMBS TIPO CÁPSULA --- */
 .breadcrumb-wrapper {
-  padding: 24px 5% 0; /* Alineado con el padding del Navbar */
+  padding: 18px clamp(12px, 4vw, 32px) 0;
   display: flex;
   animation: fadeIn 0.4s ease-out;
+  box-sizing: border-box;
 }
 
 .breadcrumb-capsule {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  max-width: 100%;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 100px; /* Estilo cápsula total */
-  padding: 8px 20px;
+  border-radius: 100px;
+  padding: 8px 18px;
   gap: 4px;
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .breadcrumb-capsule:hover {
@@ -26,6 +29,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .breadcrumb-link {
@@ -35,27 +39,63 @@
   font-weight: 500;
   transition: color 0.2s ease;
   padding: 2px 4px;
+  overflow-wrap: anywhere;
 }
 
 .breadcrumb-link:hover {
-  color: var(--primary); /* Uso del morado Aura */
+  color: var(--primary);
 }
 
 .breadcrumb-separator {
   color: #d1d5db;
-  stroke-width: 2.5; /* Hace que el Chevron se vea más nítido */
+  stroke-width: 2.5;
+  flex-shrink: 0;
 }
 
 .breadcrumb-current {
   color: var(--text-main);
   font-size: 0.85rem;
-  font-weight: 700; /* Resalta la página actual */
+  font-weight: 700;
   text-transform: capitalize;
   padding: 2px 4px;
+  overflow-wrap: anywhere;
 }
 
-/* Animación sutil de entrada */
+@media (max-width: 768px) {
+  .breadcrumb-wrapper {
+    padding-top: 14px;
+  }
+
+  .breadcrumb-capsule {
+    width: 100%;
+    border-radius: 18px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb-wrapper {
+    padding-inline: 10px;
+  }
+
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-capsule {
+    gap: 2px;
+  }
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

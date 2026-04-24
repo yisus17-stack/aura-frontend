@@ -13,7 +13,7 @@ const Form = ({ children, onSubmit, buttonText }) => {
       <div className="form-left-panel"></div>
 
       {/* LADO DERECHO: El formulario */}
-      <div className="custom-form-card">
+      <div className={`custom-form-card ${isLogin ? 'is-login' : 'is-register'}`}>
         <Link to="/" className="back-home-btn">
           <ChevronLeft size={16} />
           <span>Inicio</span>
@@ -36,7 +36,7 @@ const Form = ({ children, onSubmit, buttonText }) => {
           </Link>
         </div>
 
-        <div className="form-fixed-height">
+        <div className={`form-fixed-height ${isLogin ? 'is-login' : 'is-register'}`}>
           <form onSubmit={onSubmit} className="main-form-content">
             {children}
             <button type="submit" className="btn-aura">
@@ -46,6 +46,7 @@ const Form = ({ children, onSubmit, buttonText }) => {
 
           <div className="form-alt-footer">
             <span>{isLogin ? "¿Nuevo en Aura?" : "¿Ya tienes cuenta?"}</span>
+            {" "}
             <Link to={isLogin ? "/registro" : "/login"}>
               {isLogin ? "Crea una cuenta" : "Inicia sesión"}
             </Link>

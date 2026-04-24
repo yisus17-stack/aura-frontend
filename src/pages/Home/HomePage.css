@@ -146,3 +146,75 @@
 @media (max-width: 800px) {
   .grid-expo { grid-template-columns: 1fr; }
 }
+
+/* --- CTA FINAL FLAT --- */
+.cta-flat-section {
+  background-color: #9b9f84; /* Tono verde oliva sugerido en la imagen */
+  padding: 80px 24px;
+  margin: 0 24px 80px 24px;
+  border-radius: 12px;
+}
+
+.cta-flat-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-flat-content h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #0d110f;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.cta-flat-content p {
+  font-size: 1.1rem;
+  color: #2b332b;
+  margin-bottom: 40px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.cta-flat-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-flat-solid {
+  background: #ffffff;
+  color: #000000;
+  padding: 16px 36px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-flat-solid:hover {
+  opacity: 0.9;
+}
+
+.btn-flat-outline {
+  background: transparent;
+  color: #111;
+  padding: 16px 36px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #777d64; /* Un tono un poco más oscuro que el fondo para el borde */
+  transition: background 0.2s;
+}
+
+.btn-flat-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

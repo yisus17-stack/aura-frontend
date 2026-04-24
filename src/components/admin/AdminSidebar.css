@@ -1,6 +1,6 @@
 :root {
   --aura-purple: #8b79a5;
-  --aura-purple-dark: #2d2639;
+  --aura-purple-dark: #605473;
   --aura-purple-soft: #f4f2f7;
   --text-main: #1e293b;
   --text-sub: #94a3b8;
@@ -133,6 +133,8 @@
 /* FOOTER */
 .aura-sidebar-footer {
   padding: 20px 12px;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .aura-sidebar.collapsed .aura-sidebar-footer {
@@ -236,9 +238,12 @@
     top: 0;
     width: 280px !important; /* Forzamos ancho completo en el Drawer */
     height: 100vh;
+    display: flex;
+    flex-direction: column;
     z-index: 1002;
     box-shadow: 10px 0 30px rgba(0,0,0,0.1);
     transition: left 0.4s ease;
+    overflow-y: auto;
   }
 
   /* Cuando el estado mobileOpen es true en React */
@@ -255,6 +260,8 @@
   }
 
   .aura-sidebar.mobile-open .aura-menu {
+    flex: 1 1 auto;
+    min-height: 0;
     padding: 0 12px !important;
     align-items: flex-start !important;
   }
@@ -271,11 +278,29 @@
     margin: 0 12px !important;
   }
 
+  .aura-sidebar.mobile-open .aura-sidebar-footer {
+    display: block !important;
+    padding: 20px 12px !important;
+    margin-top: auto !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .aura-sidebar.mobile-open .full-logout-btn {
     width: 100% !important;
     background: transparent !important;
     color: white !important;
     height: auto !important;
     padding: 12px !important;
+  }
+
+  .aura-sidebar.mobile-open.collapsed .aura-sidebar-footer {
+    justify-content: initial !important;
+  }
+
+  .aura-sidebar.mobile-open.collapsed .logout-card {
+    width: auto !important;
+    display: block !important;
+    background: var(--aura-purple) !important;
   }
 }

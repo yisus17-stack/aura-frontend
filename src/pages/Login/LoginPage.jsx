@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { getLoginError } from '../../utils/validations'; 
-import './LoginPage.css'; 
+import { getLoginError } from '../../utils/validations';
+import './LoginPage.css';
 import Input from '../../components/ui/Input';
 import Form from '../../components/ui/Form';
 
@@ -17,22 +17,22 @@ const LoginPage = ({ setUser }) => {
     color: '#4a4a4a',
     confirmButtonColor: '#8b79a5',
     iconColor: '#8b79a5',
-    backdrop: `rgba(139, 121, 165, 0.25) blur(10px)`,
+    backdrop: 'rgba(139, 121, 165, 0.25) blur(10px)',
     width: '450px',
-    padding: '3rem',
+    padding: '3rem'
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     const errorMessage = getLoginError(email, password);
     if (errorMessage) {
       Swal.fire({
         ...auraStyle,
-        title: '¡Casi listo...!',
+        title: 'Casi listo',
         text: errorMessage,
         icon: 'info',
-        confirmButtonText: 'Corregir',
+        confirmButtonText: 'Corregir'
       });
       return;
     }
@@ -45,94 +45,91 @@ const LoginPage = ({ setUser }) => {
       allowOutsideClick: false,
       showConfirmButton: false,
       ...auraStyle,
-      didOpen: () => Swal.showLoading(),
+      didOpen: () => Swal.showLoading()
     });
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-        let data;
+      let data;
 
-        try {
-          data = await response.json();
-        } catch {
-          throw new Error("Error al procesar la respuesta del servidor");
-        }
-
-        if (!response.ok) {
-          throw new Error(data?.error || 'Acceso denegado');
-        }
-
-      // 🔥 SOPORTA AMBOS FORMATOS
-      const usuario = data.usuario || data;
-
-      // 🔐 GUARDAR TOKEN
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error('Error al procesar la respuesta del servidor');
       }
 
-      localStorage.setItem("user", JSON.stringify(usuario));
+      if (!response.ok) {
+        throw new Error(data?.error || 'Acceso denegado');
+      }
+
+      const usuario = data.usuario || data;
+
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+
+      localStorage.setItem('user', JSON.stringify(usuario));
 
       setLoading(false);
 
       Swal.fire({
         ...auraStyle,
-        title: '¡Ingreso exitoso!',
+        title: 'Ingreso exitoso',
         text: `Bienvenido, ${usuario.nombre}`,
         icon: 'success',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1500
       }).then(() => {
-        setUser(usuario); 
+        setUser(usuario);
         if (usuario.rol === 'Admin') {
           navigate('/usuarios');
         } else {
           navigate('/dashboard');
         }
       });
-
     } catch (error) {
       setLoading(false);
 
       Swal.fire({
         ...auraStyle,
-        title: 'Error de Acceso',
+        title: 'Error de acceso',
         text: error.message,
-        icon: 'error',
+        icon: 'error'
       });
     }
   };
 
   return (
     <div className="login-page">
-      <Form 
-        onSubmit={handleLogin} 
-        title="Aura" 
-        buttonText={loading ? "Cargando..." : "Entrar ahora"}
-        disabled={loading} 
+      <Form
+        onSubmit={handleLogin}
+        title="Aura"
+        buttonText={loading ? 'Cargando...' : 'Entrar ahora'}
+        disabled={loading}
       >
         <Input
           label="Correo electrónico"
-          type="email" 
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
-          placeholder="ejemplo@aura.com"
+          placeholder="ana.lopez@gmail.com"
         />
-        <Input   
+        <Input
           label="Contraseña"
-          type="password" 
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={loading}
-          placeholder="••••••••"
+          placeholder="Tu contraseña"
         />
       </Form>
     </div>

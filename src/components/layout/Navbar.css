@@ -1,12 +1,21 @@
-/* --- NAVBAR ESTILO APPLE/EXPO --- */
+:root {
+  --aura-purple: #8b79a5;
+  --aura-purple-dark: #2d2639;
+  --aura-purple-soft: #f4f2f7;
+  --text-main: #1e293b;
+  --text-sub: #94a3b8;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* NAVBAR BASE (ESCRITORIO) */
 .main-nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 5%;
-  height: 70px;
+  background: rgba(255, 255, 255, 0.8);
+
+  border-bottom: 1px solid #f1f5f9;
+  height: 72px;
   display: flex;
   align-items: center;
 }
@@ -15,80 +24,191 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.nav-logo img { height: 40px; }
 
-.logo{
-  width: 100px;
-}
-
-
-.nav-links {
+.desktop-menu-wrapper {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 15px;
 }
 
-.nav-item {
+.nav-menu { display: flex; gap: 8px; }
+
+/* Estilos de links desktop */
+.nav-item, .nav-link-admin {
   text-decoration: none;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.nav-item:hover {
-  color: var(--primary);
-}
-
-/* Badge de Usuario Logueado */
-.user-profile-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--primary-light);
-  color: var(--primary);
-  padding: 6px 14px;
-  border-radius: 100px;
-  font-size: 0.85rem;
+  color: var(--text-sub);
   font-weight: 600;
-}
-
-/* Botón de Registro en Nav */
-.btn-primary-nav {
-  background: var(--primary);
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.btn-primary-nav:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(134, 112, 158, 0.2);
-}
-
-.btn-logout {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: 1px solid #fee2e2;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 10px;
-  color: #ef4444;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
 }
 
-.btn-logout:hover {
+.nav-item:hover, .nav-link-admin:hover {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+}
+
+.btn-logout-desktop {
+  background: var(--aura-purple-soft);
+  border: none;
+  color: var(--aura-purple);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  transition: var(--transition);
+}
+
+.btn-logout-desktop:hover {
   background: #fee2e2;
+  color: #ef4444;
+}
+
+/* GATILLO MÓVIL */
+.nav-toggle {
+  display: none;
+  background: var(--aura-purple-soft);
+  border: none;
+  color: var(--aura-purple);
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* === DRAWER MÓVIL (ESTILO SIDEBAR) === */
+.aura-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Empieza afuera a la derecha */
+  width: 280px;
+  height: 100vh;
+  background: white;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+}
+
+.aura-nav-drawer.mobile-open {
+  right: 0;
+}
+
+.drawer-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.drawer-logo { height: 35px; }
+
+.close-drawer-btn {
+  background: var(--aura-purple-soft);
+  border: none;
+  color: var(--aura-purple);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CONTENIDO DRAWER */
+.drawer-menu {
+  flex: 1;
+  padding: 20px 15px;
+}
+
+.menu-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin: 20px 0 10px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  text-decoration: none;
+  color: var(--text-sub);
+  font-weight: 600;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  transition: var(--transition);
+}
+
+.drawer-item:hover, .drawer-item.active {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+}
+
+.admin-highlight {
+  color: var(--aura-purple);
+  background: var(--aura-purple-soft);
+}
+
+/* FOOTER / LOGOUT CARD */
+.drawer-footer {
+  padding: 20px;
+}
+
+.logout-card {
+  background: var(--aura-purple);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.full-logout-btn {
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.full-logout-btn:hover {
+  background: var(--aura-purple-dark);
+}
+
+/* OVERLAY */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.4);
+  z-index: 1500;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .desktop-menu-wrapper { display: none; }
+  .nav-toggle { display: block; }
 }

@@ -92,7 +92,7 @@ const Dashboard = ({ user }) => {
           <Link 
             to={`/personaje/${p._id}`}
             key={p._id} 
-            state={{ nombrePersonaje: p.nombre }}
+            state={{ nombrePersonaje: p.nombre, personaje: p }}
             className="character-card-link"
           >
             <div className="character-card">

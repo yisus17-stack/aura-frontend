@@ -13,6 +13,20 @@ import {
 import './LogsTable.css';
 
 const LogsTable = ({ data = [] }) => {
+  const getActionText = (action) => {
+    const labels = {
+      LOGIN: 'Inicio de sesion',
+      REGISTER: 'Registro de usuario',
+      GET_USUARIOS: 'Consulta de usuarios',
+      DELETE_USUARIO: 'Eliminacion de usuario',
+      GET_PERSONAJES: 'Consulta de personajes',
+      GET_PERSONAJE_DETAIL: 'Detalle de personaje',
+      CREATE_PERSONAJE: 'Creacion de personaje',
+      DELETE_PERSONAJE: 'Eliminacion de personaje'
+    };
+
+    return labels[action] || action || '-';
+  };
 
   const getStatusClass = (status) => {
     if (!status) return '';
@@ -57,7 +71,7 @@ const LogsTable = ({ data = [] }) => {
               <TableRow key={log._id || i}>
 
                 <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
-                  {log.accion}
+                  {getActionText(log.accion)}
                 </TableCell>
 
                 <TableCell>

@@ -65,6 +65,17 @@ const HomePage = () => {
 
         </div>
       </section>
+      {/* SECCIÓN CTA FINAL FLAT */}
+      <section className="cta-flat-section">
+        <div className="cta-flat-content">
+          <h2>Comienza con Aura Hoy Mismo</h2>
+          <p>Mejora la gestión de tu colección con la plataforma más avanzada para el universo Disney.</p>
+          <div className="cta-flat-buttons">
+            <Link to="/login" className="btn-flat-solid">ENTRAR AHORA</Link>
+            <Link to="/registro" className="btn-flat-outline">CREAR CUENTA</Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };

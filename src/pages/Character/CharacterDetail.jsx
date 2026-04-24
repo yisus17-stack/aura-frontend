@@ -1,98 +1,151 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ChevronLeft, Calendar, Film, Tag, Activity, Info, Globe } from 'lucide-react';
-import './CharacterDetail.css'; // Importamos los estilos específicos para esta página
+import {
+  ChevronLeft,
+  Calendar,
+  Film,
+  Activity,
+  Info,
+  Globe
+} from 'lucide-react';
+
+import API from '../../api/axios';
+
+import './CharacterDetail.css';
 
 const CharacterDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [p, setPersonaje] = useState(null);
+  const location = useLocation();
+  const personajeDesdeState = location.state?.personaje ?? null;
+
+  const [personaje, setPersonaje] = useState(personajeDesdeState);
+  const [loading, setLoading] = useState(!personajeDesdeState);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchDato = async () => {
+    const fetchPersonaje = async () => {
+      if (!id) {
+        setPersonaje(null);
+        setError('No se encontró el identificador del personaje.');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await axios.get(`http://localhost:3001/personajes/${id}`);
-        setPersonaje(res.data);
-      } catch (e) {
-        console.error("Error al cargar detalle");
+        setLoading(true);
+        setError('');
+
+        const response = await API.get(`/personajes/${id}`);
+        const data = response?.data?.personaje ?? response?.data;
+
+        setPersonaje(data ?? null);
+      } catch (err) {
+        console.error('Error al cargar detalle:', err);
+
+        if (!personajeDesdeState) {
+          setPersonaje(null);
+        }
+
+        setError(
+          err.response?.data?.message || 'No se pudo cargar el detalle del personaje.'
+        );
+      } finally {
+        setLoading(false);
       }
     };
-    fetchDato();
-  }, [id]);
 
-  if (!p) return <div className="loader">Cargando magia...</div>;
+    if (personajeDesdeState?._id === id) {
+      setPersonaje(personajeDesdeState);
+      setLoading(false);
+      setError('');
+      return;
+    }
+
+    fetchPersonaje();
+  }, [id, personajeDesdeState]);
+
+  if (loading) {
+    return <div className="loader">Cargando...</div>;
+  }
+
+  if (!personaje) {
+    return <div className="loader">{error || 'No se encontro el personaje'}</div>;
+  }
 
   return (
     <div className="container detail-page-container">
       <button onClick={() => navigate(-1)} className="btn-back-subtle">
         <ChevronLeft size={20} strokeWidth={2.5} />
-        <span>Volver al Dashboard</span>
+        <span>Volver</span>
       </button>
 
       <div className="master-detail-layout">
-        
-        {/* COLUMNA IZQUIERDA: Enfoque en el Arte */}
         <div className="visual-panel">
           <div className="main-image-card">
-            <img src={p.imagen} alt={p.nombre} className="character-hero-img" />
-            <div className="category-overlay">{p.categoria}</div>
+            <img
+              src={personaje.imagen}
+              alt={personaje.nombre}
+              className="character-hero-img"
+            />
+            <div className="category-overlay">{personaje.categoria}</div>
           </div>
         </div>
 
-        {/* COLUMNA DERECHA: Información Densa (Llenado total) */}
         <aside className="data-panel">
           <div className="character-title-section">
             <label>Character Profile</label>
-            <h1>{p.nombre}</h1>
+            <h1>{personaje.nombre}</h1>
           </div>
 
           <div className="widgets-group">
-            <h3 className="section-title">Ficha Técnica</h3>
-            
             <div className="expo-widget">
-              <div className="widget-icon"><Film size={18} /></div>
+              <div className="widget-icon">
+                <Film size={18} />
+              </div>
               <div className="widget-info">
-                <label>Origen</label>
-                <p>{p.pelicula}</p>
+                <label>Pelicula</label>
+                <p>{personaje.pelicula}</p>
               </div>
             </div>
 
             <div className="expo-widget">
-              <div className="widget-icon"><Calendar size={18} /></div>
+              <div className="widget-icon">
+                <Calendar size={18} />
+              </div>
               <div className="widget-info">
-                <label>Lanzamiento</label>
-                <p>Año {p.anio}</p>
+                <label>Anio</label>
+                <p>{personaje.anio}</p>
               </div>
             </div>
 
             <div className="expo-widget highlight">
-              <div className="widget-icon"><Activity size={18} /></div>
+              <div className="widget-icon">
+                <Activity size={18} />
+              </div>
               <div className="widget-info">
-                <label>Estado del Asset</label>
-                <p>Verificado / 4K</p>
+                <label>Estado</label>
+                <p>Activo</p>
               </div>
             </div>
           </div>
 
-          {/* LA HISTORIA: Ahora aquí para llenar el espacio */}
           <div className="history-widget-card">
             <div className="history-header">
               <Info size={16} />
-              <span>Historia y Perfil</span>
+              <span>Descripcion</span>
             </div>
-            <p>{p.descripcion}</p>
+            <p>{personaje.descripcion}</p>
           </div>
 
           <div className="api-preview-card">
             <div className="api-header">
               <Globe size={12} />
-              <label>API Endpoint</label>
+              <label>Endpoint</label>
             </div>
-            <code>GET /personajes/{id}</code>
+            <code>/api/personajes/{id}</code>
           </div>
         </aside>
-
       </div>
     </div>
   );

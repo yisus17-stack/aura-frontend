@@ -1,31 +1,52 @@
-/* Input.css */
 .form-group {
   position: relative;
   width: 100%;
 }
 
+.input-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #4b5563;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 .input {
   width: 100%;
-  padding: 15px 20px 15px 20px; /* Espacio para el icono */
+  padding: 15px 16px;
   background: #fcfcfc;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 0.95rem;
-  color: #888;
+  border-radius: 12px;
+  font-size: 0.96rem;
+  color: #374151;
   outline: none;
   box-sizing: border-box;
-  margin-top: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.input::placeholder {
+  color: #9ca3af;
 }
 
 .input:focus {
-  background: #fafafa;
+  background: #ffffff;
+  border-color: #8b79a5;
+  box-shadow: 0 0 0 4px rgba(139, 121, 165, 0.1);
 }
 
-/* Iconos dentro del input (ajusta tu Input.jsx para recibirlos) */
-.input-icon {
-  position: absolute;
-  left: 2px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ccc;
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 420px) {
+  .input-label {
+    font-size: 0.88rem;
+  }
+
+  .input {
+    padding: 14px 14px;
+    font-size: 0.94rem;
+  }
 }

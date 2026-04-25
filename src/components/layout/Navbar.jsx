@@ -38,7 +38,7 @@ const Navbar = ({ user, onLogout }) => {
           {/* MENÚ DESKTOP (Se oculta en móvil vía CSS) */}
           <div className="desktop-menu-wrapper">
              <div className="nav-menu">
-                <Link to="/mapa-del-sitio" className="nav-item">Mapa del Sitio</Link>
+                <Link to="/" className="nav-item">Inicio</Link>
                 {user && (
                   <Link to="/dashboard" className="nav-item">
                     Dashboard
@@ -79,8 +79,8 @@ const Navbar = ({ user, onLogout }) => {
 
         <nav className="drawer-menu">
           <p className="menu-label">Navegación</p>
-          <Link to="/mapa-del-sitio" onClick={closeMenu} className="drawer-item">
-             <span>Mapa del Sitio</span>
+          <Link to="/" onClick={closeMenu} className="drawer-item">
+             <span>Inicio</span>
           </Link>
           
           {user ? (

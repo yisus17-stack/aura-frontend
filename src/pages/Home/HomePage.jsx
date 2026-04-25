@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Film, Star, Heart, Library } from 'lucide-react';
 import logo from '../../assets/aura-logo-n.svg';
+import disneyLogo from '../../assets/disney-logo.png';
+import pixarLogo from '../../assets/logo-pixar.png';
 import './HomePage.css';
 
 const HomePage = ({ user }) => {
@@ -53,29 +55,20 @@ const HomePage = ({ user }) => {
         </div>
       </section>
 
-      {/* --- SECCIÓN 2: GRIS SIMPLE (SIN BORDES, IMAGEN LIMPIA) --- */}
-      <section className="bg-text-soft-clean">
-        <div className="container-aura split">
-          <div className="info-text">
-            <span className="badge-simple">Especial del Mes</span>
-            <h2 className="text-white-pure">Stitch: Experimento 626</h2>
-            <p className="text-white-soft">
-              ¿Sabías que Stitch fue diseñado originalmente para ser un monstruo destructivo? 
-              En Aura tenemos los detalles de su evolución.
-            </p>
-            <ul className="list-simple">
-              <li><Star size={16} /> Origen: Turo</li>
-              <li><Heart size={16} /> Familia: Ohana</li>
-            </ul>
+      {/* --- SECCIÓN 2: MARCAS --- */}
+      <section className="brands-section brands-section-simple">
+        <div className="container-aura">
+          <div className="info-header brands-header">
+            <span className="aura-badge">Marcas</span>
+            <h2>Aliados del universo Aura</h2>
           </div>
-          
-          <div className="visual-clean">
-            {/* Imagen sin bordes ni contenedores pesados */}
-            <img 
-              src="https://img.icons8.com/color/512/stitch.png" 
-              alt="Stitch" 
-              className="img-minimal"
-            />
+          <div className="brands-grid brands-grid-simple">
+            <div className="brand-logo">
+              <img src={disneyLogo} alt="Disney logo" />
+            </div>
+            <div className="brand-logo">
+              <img src={pixarLogo} alt="Pixar logo" />
+            </div>
           </div>
         </div>
       </section>
@@ -109,6 +102,7 @@ const HomePage = ({ user }) => {
           <nav className="footer-map">
             <Link to="/">Inicio</Link>
             <Link to="/login">Entrar</Link>
+            <Link to="/mapa-del-sitio">Mapa del Sitio</Link>
           </nav>
         </div>
         <div className="footer-bottom">

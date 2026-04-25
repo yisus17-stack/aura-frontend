@@ -18,6 +18,11 @@ const Usuarios = () => {
     personajes: []
   });
   const [loading, setLoading] = useState(false);
+  const [loadedTabs, setLoadedTabs] = useState({
+    usuarios: false,
+    logs: false,
+    personajes: false
+  });
 
   const navigate = useNavigate();
 
@@ -28,49 +33,38 @@ const Usuarios = () => {
   };
 
   // Usamos useCallback para poder re-utilizar la carga si es necesario
-  const fetchData = useCallback(async () => {
+  const getEndpointByTab = (tab) => {
+    if (tab === 'logs') return '/logs';
+    if (tab === 'personajes') return '/personajes';
+    return '/usuarios';
+  };
+
+  const fetchDataForTab = useCallback(async (tab) => {
     setLoading(true);
     try {
-      const [usuariosRes, logsRes, personajesRes] = await Promise.allSettled([
-        API.get('/usuarios'),
-        API.get('/logs'),
-        API.get('/personajes')
-      ]);
-
-      const nextData = {
-        usuarios: usuariosRes.status === 'fulfilled' ? usuariosRes.value.data || [] : [],
-        logs: logsRes.status === 'fulfilled' ? logsRes.value.data || [] : [],
-        personajes: personajesRes.status === 'fulfilled' ? personajesRes.value.data || [] : []
-      };
-
-      setData(nextData);
-
-      if (usuariosRes.status === 'rejected') {
-        console.error('Error cargando usuarios:', usuariosRes.reason);
-      }
-      if (logsRes.status === 'rejected') {
-        console.error('Error cargando logs:', logsRes.reason);
-      }
-      if (personajesRes.status === 'rejected') {
-        console.error('Error cargando personajes:', personajesRes.reason);
-      }
-
-      const anyAuthError = [usuariosRes, logsRes, personajesRes].some(
-        (result) => result.status === 'rejected' && result.reason?.response?.status === 401
-      );
-      if (anyAuthError) {
+      const response = await API.get(getEndpointByTab(tab));
+      setData((prev) => ({
+        ...prev,
+        [tab]: response.data || []
+      }));
+      setLoadedTabs((prev) => ({
+        ...prev,
+        [tab]: true
+      }));
+    } catch (error) {
+      console.error(`Error cargando ${tab}:`, error);
+      if (error.response?.status === 401) {
         handleLogout();
       }
-    } catch (error) {
-      console.error('Error al conectar con el backend:', error);
     } finally {
       setLoading(false);
     }
-  }, [navigate]);
+  }, [handleLogout]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchDataForTab('usuarios');
+  }, [fetchDataForTab]);
+
 
   const eliminarUsuario = (id) => {
     Swal.fire({
@@ -135,11 +129,18 @@ const Usuarios = () => {
     }
   };
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    if (!loadedTabs[tab]) {
+      fetchDataForTab(tab);
+    }
+  };
+
   return (
     <div className="aura-layout">
       <AdminSidebar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleTabChange}
         onLogout={handleLogout}
       />
 

@@ -30,16 +30,20 @@ const PersonajeTable = ({ data = [], onDelete }) => {
         <TableBody>
           {data.length > 0 ? (
             data.map((p) => (
-              <TableRow key={p._id}>
+              // 1. Cambiamos p._id por p.id (Estilo SQL)
+              <TableRow key={p.id}>
                 <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
                   {p.nombre}
                 </TableCell>
 
                 <TableCell>
                   <img
-                    src={normalizeImageUrl(p.imagen)}
+                    // 2. Cambiamos p.imagen por p.imagen_url (Nombre de tu columna en Supabase)
+                    src={normalizeImageUrl(p.imagen_url)}
                     alt={p.nombre}
                     className="character-img"
+                    // Agregamos un estilo preventivo por si la clase CSS falla
+                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '8px' }}
                   />
                 </TableCell>
 
@@ -50,7 +54,8 @@ const PersonajeTable = ({ data = [], onDelete }) => {
                 <TableCell className="text-center">
                   <button
                     className="btn-delete"
-                    onClick={() => onDelete(p._id)}
+                    // 3. Cambiamos p._id por p.id para la función de eliminar
+                    onClick={() => onDelete(p.id)}
                     title="Eliminar personaje"
                   >
                     <Trash2 size={18} />

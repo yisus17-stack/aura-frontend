@@ -26,11 +26,11 @@ const Usuarios = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate('/login');
-  };
+  }, [navigate]);
 
   // Usamos useCallback para poder re-utilizar la carga si es necesario
   const getEndpointByTab = (tab) => {

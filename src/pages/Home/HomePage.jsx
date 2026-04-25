@@ -37,7 +37,6 @@ const HomePage = ({ user }) => {
         </div>
       </section>
 
-      {/* --- SECCIÓN 1: UNIVERSOS (BLANCO) --- */}
       <section className="info-section">
         <div className="container-aura">
           <div className="info-header">

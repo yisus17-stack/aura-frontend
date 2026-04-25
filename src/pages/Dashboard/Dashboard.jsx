@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Search, Trash2 } from 'lucide-react';
 import './Dashboard.css';
 import Swal from 'sweetalert2';
-import API from '../../api/axios'; // 🔥 IMPORTANTE
+import API from '../../api/axios'; 
 import { normalizeImageUrl } from '../../utils/imageHelpers';
 
 const Dashboard = ({ user }) => {
@@ -13,7 +13,7 @@ const Dashboard = ({ user }) => {
   useEffect(() => {
     const obtenerPersonajes = async () => {
       try {
-        const respuesta = await API.get('/personajes'); // 🔥 YA USA TOKEN
+        const respuesta = await API.get('/personajes'); 
         setPersonajes(respuesta.data);
       } catch (error) {
         console.error("Error al conectar con la API:", error);
@@ -28,7 +28,7 @@ const Dashboard = ({ user }) => {
   );
 
   const eliminarPersonaje = async (e, id) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita que el Link nos mande a la página de detalle
 
     Swal.fire({
       title: '¿Estás seguro?',
@@ -42,10 +42,10 @@ const Dashboard = ({ user }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await API.delete(`/personajes/${id}`); // 🔥 YA USA TOKEN
+          await API.delete(`/personajes/${id}`); 
 
-          // 🔥 actualización correcta del estado
-          setPersonajes(prev => prev.filter((p) => p._id !== id));
+          // 🔥 ACTUALIZACIÓN: Usamos p.id para filtrar el estado
+          setPersonajes(prev => prev.filter((p) => p.id !== id));
 
           Swal.fire({
             title: 'Eliminado',
@@ -91,14 +91,16 @@ const Dashboard = ({ user }) => {
       <div className="card-grid">
         {personajesFiltrados.map((p) => (
           <Link 
-            to={`/personaje/${p._id}`}
-            key={p._id} 
+            // 🔥 CAMBIO: p._id -> p.id
+            to={`/personaje/${p.id}`}
+            key={p.id} 
             state={{ nombrePersonaje: p.nombre, personaje: p }}
             className="character-card-link"
           >
             <div className="character-card">
               <div className="image-container">
-                <img src={normalizeImageUrl(p.imagen)} alt={p.nombre} />
+                {/* 🔥 CAMBIO: p.imagen -> p.imagen_url */}
+                <img src={normalizeImageUrl(p.imagen_url)} alt={p.nombre} />
               </div>
 
               <div className="card-info">
@@ -110,7 +112,8 @@ const Dashboard = ({ user }) => {
                 
                 {user?.rol === 'Admin' && (
                   <button 
-                    onClick={(e) => eliminarPersonaje(e, p._id)}
+                    // 🔥 CAMBIO: p._id -> p.id
+                    onClick={(e) => eliminarPersonaje(e, p.id)}
                     className="btn-delete"
                     title="Eliminar personaje"
                   >

@@ -38,6 +38,7 @@ const CharacterDetail = () => {
         setError('');
 
         const response = await API.get(`/personajes/${id}`);
+        // Ajustamos la desestructuración por si la API devuelve el objeto directo o dentro de una propiedad
         const data = response?.data?.personaje ?? response?.data;
 
         setPersonaje(data ?? null);
@@ -56,7 +57,8 @@ const CharacterDetail = () => {
       }
     };
 
-    if (personajeDesdeState?._id === id) {
+    // 🔥 CAMBIO: p._id -> p.id para la validación del estado previo
+    if (personajeDesdeState?.id === id || personajeDesdeState?.id === Number(id)) {
       setPersonaje(personajeDesdeState);
       setLoading(false);
       setError('');
@@ -85,7 +87,8 @@ const CharacterDetail = () => {
         <div className="visual-panel">
           <div className="main-image-card">
             <img
-              src={normalizeImageUrl(personaje.imagen)}
+              // 🔥 CAMBIO: personaje.imagen -> personaje.imagen_url
+              src={normalizeImageUrl(personaje.imagen_url)}
               alt={personaje.nombre}
               className="character-hero-img"
             />
@@ -115,7 +118,7 @@ const CharacterDetail = () => {
                 <Calendar size={18} />
               </div>
               <div className="widget-info">
-                <label>Anio</label>
+                <label>Año</label>
                 <p>{personaje.anio}</p>
               </div>
             </div>
@@ -134,7 +137,7 @@ const CharacterDetail = () => {
           <div className="history-widget-card">
             <div className="history-header">
               <Info size={16} />
-              <span>Descripcion</span>
+              <span>Descripción</span>
             </div>
             <p>{personaje.descripcion}</p>
           </div>

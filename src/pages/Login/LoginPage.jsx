@@ -22,7 +22,7 @@ const LoginPage = ({ setUser }) => {
     padding: '3rem'
   };
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
   const handleLogin = async (e) => {
     e.preventDefault();

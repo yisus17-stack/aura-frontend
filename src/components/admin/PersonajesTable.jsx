@@ -11,6 +11,7 @@ import {
 } from '../ui/Table';
 
 import './PersonajesTable.css';
+import { normalizeImageUrl } from '../../utils/imageHelpers';
 
 const PersonajeTable = ({ data = [], onDelete }) => {
   return (
@@ -36,7 +37,7 @@ const PersonajeTable = ({ data = [], onDelete }) => {
 
                 <TableCell>
                   <img
-                    src={p.imagen}
+                    src={normalizeImageUrl(p.imagen)}
                     alt={p.nombre}
                     className="character-img"
                   />

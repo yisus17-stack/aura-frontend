@@ -4,6 +4,7 @@ import { Search, Trash2 } from 'lucide-react';
 import './Dashboard.css';
 import Swal from 'sweetalert2';
 import API from '../../api/axios'; // 🔥 IMPORTANTE
+import { normalizeImageUrl } from '../../utils/imageHelpers';
 
 const Dashboard = ({ user }) => {
   const [personajes, setPersonajes] = useState([]);
@@ -97,7 +98,7 @@ const Dashboard = ({ user }) => {
           >
             <div className="character-card">
               <div className="image-container">
-                <img src={p.imagen} alt={p.nombre} />
+                <img src={normalizeImageUrl(p.imagen)} alt={p.nombre} />
               </div>
 
               <div className="card-info">

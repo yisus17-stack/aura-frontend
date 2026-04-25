@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 
 import API from '../../api/axios';
+import { normalizeImageUrl } from '../../utils/imageHelpers';
 
 import './CharacterDetail.css';
 
@@ -84,7 +85,7 @@ const CharacterDetail = () => {
         <div className="visual-panel">
           <div className="main-image-card">
             <img
-              src={personaje.imagen}
+              src={normalizeImageUrl(personaje.imagen)}
               alt={personaje.nombre}
               className="character-hero-img"
             />

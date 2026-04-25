@@ -31,26 +31,38 @@ const Usuarios = () => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      // Usamos peticiones individuales o Promise.all
-      // Tip: Revisa si los endpoints terminan en / o no en tu backend
-      const [usuariosRes, logsRes, personajesRes] = await Promise.all([
+      const [usuariosRes, logsRes, personajesRes] = await Promise.allSettled([
         API.get('/usuarios'),
         API.get('/logs'),
         API.get('/personajes')
       ]);
 
-      setData({
-        usuarios: usuariosRes.data || [],
-        logs: logsRes.data || [],
-        personajes: personajesRes.data || []
-      });
+      const nextData = {
+        usuarios: usuariosRes.status === 'fulfilled' ? usuariosRes.value.data || [] : [],
+        logs: logsRes.status === 'fulfilled' ? logsRes.value.data || [] : [],
+        personajes: personajesRes.status === 'fulfilled' ? personajesRes.value.data || [] : []
+      };
 
-    } catch (error) {
-      console.error("Error al conectar con el backend:", error);
-      // Si el error es 401 o 403, es probable que el token expiró
-      if (error.response?.status === 401) {
+      setData(nextData);
+
+      if (usuariosRes.status === 'rejected') {
+        console.error('Error cargando usuarios:', usuariosRes.reason);
+      }
+      if (logsRes.status === 'rejected') {
+        console.error('Error cargando logs:', logsRes.reason);
+      }
+      if (personajesRes.status === 'rejected') {
+        console.error('Error cargando personajes:', personajesRes.reason);
+      }
+
+      const anyAuthError = [usuariosRes, logsRes, personajesRes].some(
+        (result) => result.status === 'rejected' && result.reason?.response?.status === 401
+      );
+      if (anyAuthError) {
         handleLogout();
       }
+    } catch (error) {
+      console.error('Error al conectar con el backend:', error);
     } finally {
       setLoading(false);
     }
@@ -146,7 +158,7 @@ const Usuarios = () => {
         <div className="table-container-wrapper">
           {loading ? (
             <div className="table-spinner-container">
-              <Spinner size="large" message="Cargando datos..." />
+              <Spinner size="large" />
             </div>
           ) : (
             <>

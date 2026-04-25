@@ -33,7 +33,7 @@ const HomePage = ({ user }) => {
         
         <div className="hero-button-group">
           <Link to={linkTo} className="btn-black">Comenzar ahora</Link>
-          <Link to="/login" className="btn-outline-minimal">Documentación</Link>
+          <Link to="/login" className="btn-outline-minimal">Explorar</Link>
         </div>
       </section>
 

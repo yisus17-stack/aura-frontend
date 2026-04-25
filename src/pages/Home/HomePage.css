@@ -21,7 +21,7 @@
   padding: 120px 20px 80px;
 }
 
-.logo-static { width: 120px; margin-bottom: 24px; }
+.logo-static { width: 300px; margin-bottom: 20px;  }
 
 .hero-title-bold {
   font-size: 3.5rem;
@@ -29,6 +29,7 @@
   line-height: 1.1;
   letter-spacing: -2px;
   margin-bottom: 20px;
+  margin-top: -20px;
 }
 
 .text-primary { color: var(--aura-purple); }

@@ -18,14 +18,18 @@ const HomePage = ({ user }) => {
         </div>
         
         <h1 className="hero-title-bold">
-          Descubre la magia <br />
+          Descubre la magia
           en <span className="text-primary">Aura</span>
         </h1>
         
-        <p className="hero-subtitle-flat">
-          El rincón predilecto para los personajes del universo Disney. 
-          Explora, colecciona y vive la fantasía.
-        </p>
+        <p style={{marginBottom: 10}} className="hero-subtitle-flat">
+          Cada película es una aventura, cada personaje un amigo, y cada
+          </p>
+          <p  className="hero-subtitle-flat">
+             historia un tesoro por descubrir.
+          </p>
+            
+        
         
         <div className="hero-button-group">
           <Link to={linkTo} className="btn-black">Comenzar ahora</Link>

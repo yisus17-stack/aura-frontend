@@ -8,6 +8,7 @@ import AdminSidebar from '../../components/admin/AdminSidebar';
 import UserTable from '../../components/admin/UserTable';
 import LogsTable from '../../components/admin/LogsTable';
 import PersonajesTable from '../../components/admin/PersonajesTable';
+import Spinner from '../../components/ui/Spinner';
 
 const Usuarios = () => {
   const [activeTab, setActiveTab] = useState('usuarios');
@@ -144,7 +145,9 @@ const Usuarios = () => {
 
         <div className="table-container-wrapper">
           {loading ? (
-            <div className="aura-loader">Cargando datos...</div>
+            <div className="table-spinner-container">
+              <Spinner size="large" message="Cargando datos..." />
+            </div>
           ) : (
             <>
               {activeTab === 'usuarios' && (

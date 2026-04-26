@@ -40,8 +40,8 @@ const Dashboard = ({ user }) => {
       try {
         const respuesta = await API.get('/personajes'); 
         setPersonajes(respuesta.data);
-      } catch (error) {
-        console.error("Error al conectar con la API:", error);
+      } catch {
+        console.error("Error al conectar con la API.");
       } finally {
         setLoading(false);
       }
@@ -89,7 +89,7 @@ const Dashboard = ({ user }) => {
             showConfirmButton: false
           });
 
-        } catch (error) {
+        } catch {
           Swal.fire({
             title: 'Error',
             text: "No se pudo eliminar el personaje.",

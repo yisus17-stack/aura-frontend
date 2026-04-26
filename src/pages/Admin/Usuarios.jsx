@@ -55,8 +55,8 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
         ...prev,
         [tab]: true
       }));
-    } catch (error) {
-      console.error(`Error cargando ${tab}:`, error);
+    } catch {
+      console.error(`Error cargando ${tab}`);
       // Si el token expira (401), mandamos al Home mediante el logout centralizado
       if (error.response?.status === 401) {
         handleLogout();
@@ -67,6 +67,7 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
   }, [handleLogout]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchDataForTab(activeTab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -93,8 +94,8 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
         usuarios: prev.usuarios.filter(u => u._id !== id)
       }));
       Swal.fire('Eliminado', 'Usuario borrado correctamente', 'success');
-    } catch (error) {
-      console.error("Error al eliminar:", error);
+    } catch {
+      console.error("Error al eliminar");
       Swal.fire('Error', 'No se pudo eliminar el usuario', 'error');
     }
   };
@@ -122,8 +123,8 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
         personajes: prev.personajes.filter(p => p._id !== id)
       }));
       Swal.fire('Eliminado', 'Personaje borrado correctamente', 'success');
-    } catch (error) {
-      console.error("Error al eliminar personaje:", error);
+    } catch {
+      console.error("Error al eliminar personaje");
       Swal.fire('Error', 'No se pudo eliminar el personaje', 'error');
     }
   };
@@ -175,7 +176,7 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
                         await API.delete('/logs');
                         fetchDataForTab('logs');
                         Swal.fire('¡Limpios!', 'El historial de logs está vacío.', 'success');
-                      } catch (error) {
+                      } catch {
                         Swal.fire('Error', 'No se pudieron limpiar los logs', 'error');
                         setLoading(false);
                       }

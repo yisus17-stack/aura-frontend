@@ -50,13 +50,8 @@ const CharacterDetail = () => {
       }
     };
 
-    // ⚡ Si ya viene desde state no vuelve a pedir
-    if (
-      personajeDesdeState &&
-      (personajeDesdeState.id === id ||
-        personajeDesdeState.id === Number(id))
-    ) {
-      setPersonaje(personajeDesdeState);
+    // Si el personaje ya está cargado y coincide con el ID actual, no re-fetch
+    if (personaje && (personaje.id === id || personaje.id === Number(id))) {
       setLoading(false);
       return;
     }

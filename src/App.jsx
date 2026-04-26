@@ -3,9 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 
 // Componentes de Layout
 import Navbar from './components/layout/Navbar';
-import Breadcrumbs from './components/layout/Breadcrumbs';
 import Footer from './components/layout/Footer';
-import logo from './assets/aura-logo-n.svg';
 import './App.css';
 
 // Páginas
@@ -19,20 +17,15 @@ import NotFound from './pages/NotFound/NotFound';
 import SitemapPage from './pages/Sitemap/SitemapPage';
 
 // Importamos el servicio centralizado (asegúrate de que la ruta sea correcta)
-import { logoutUser } from './services/authService';
+
 
 const AppContent = ({ user, setUser }) => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const isAuthPage = location.pathname === '/login' || location.pathname === '/registro';
   const isAdminPage = location.pathname === '/usuarios';
 
-  // --- FUNCIÓN DE SALIDA RIFADA ---
-  // Ahora usa el servicio centralizado para asegurar que mande a Home
-  const handleLogout = () => {
-    logoutUser(setUser, navigate);
-  };
+
 
   return (
     <div className="app-container">
@@ -120,7 +113,7 @@ function App() {
     const storedUser = localStorage.getItem("user");
     try {
       return storedUser ? JSON.parse(storedUser) : null;
-    } catch (error) {
+    } catch {
       return null;
     }
   });

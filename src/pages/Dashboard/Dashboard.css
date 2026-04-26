@@ -33,9 +33,6 @@
   color: var(--text-muted);
 }
 
-
-
-
 /* --- GRID (4 / 3 / 2 / 1) --- */
 .card-grid {
   display: grid;
@@ -60,13 +57,13 @@
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #e8e8e8; 
- 
 }
 
 .character-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 18px 35px rgba(255, 255, 255, 0.08);
 }
+
 /* --- IMAGEN --- */
 .image-container {
   width: 100%;
@@ -157,59 +154,7 @@
   font-size: 0.9rem;
 }
 
-/* --- SPINNER GRANDE CENTRADO --- */
-
-
-
-
-/* --- BREAKPOINTS --- */
-
-/* laptops pequeñas */
-@media (max-width: 1024px) {
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* tablets */
-@media (max-width: 768px) {
-  .dashboard-header {
-    text-align: left;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* móviles */
-@media (max-width: 480px) {
-  .dashboard-container {
-    padding: 20px 12px 40px;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* muy pequeños */
-@media (max-width: 360px) {
-  .card-text h3 {
-    font-size: 0.9rem;
-  }
-
-  .card-text p {
-    font-size: 0.8rem;
-  }
-}
-
-
-
-
 /* --- HERO --- */
-/* --- HERO PRO --- */
 .dashboard-hero {
   width: 100%;
   border-radius: 24px;
@@ -222,21 +167,18 @@
   overflow: hidden;
 }
 
-/* SVG Decorativo en el fondo de la card */
 .hero-decorative-svg {
   position: absolute;
   top: -80px;
   right:-330px;
   width: 800px;
   height: auto;
-  opacity: 0.6; /* Alta opacidad porque es una imagen detallada */
+  opacity: 0.6;
   z-index: 0;
   pointer-events: none;
   transform: rotate(-15deg);
-
 }
 
-/* layout horizontal */
 .hero-wrapper {
   display: flex;
   align-items: center;
@@ -244,10 +186,9 @@
   gap: 20px;
   flex-wrap: wrap;
   position: relative;
-  z-index: 1; /* Mantener encima del color */
+  z-index: 1;
 }
 
-/* texto */
 .hero-content {
   max-width: 500px;
 }
@@ -265,18 +206,14 @@
   font-size: 0.95rem;
 }
 
-/* --- BUSCADOR DERECHA --- */
 .hero-search {
   position: relative;
   width: 100%;
   max-width: 400px;
   margin-right: 10px;
   margin-top: 20px;
-
 }
 
-/* mejora visual del input */
-/*despues de hacer clic en el input no mostrar el borde por defecto*/
 .hero-search .search-input:focus {
   outline: none;
 }
@@ -292,7 +229,6 @@
   transition: all 0.25s ease;
   display: flex;
   align-items: center;
-
 }
 
 .hero-search .search-input:focus {
@@ -300,7 +236,6 @@
   box-shadow: 0 0 0 3px rgba(134,112,158,0.12);
 }
 
-/* icono */
 .hero-search .search-icon {
   position: absolute;
   left: 12px;
@@ -370,7 +305,6 @@
   font-weight: 700;
   color: #475569;
   font-size: 1.3rem;
-
 }
 
 .brand-filter-btn.active .brand-filter-text {
@@ -378,9 +312,24 @@
 }
 
 /* --- RESPONSIVE --- */
+
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .dashboard-hero{
-    height:250px;
+  .dashboard-header {
+    text-align: left;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-hero {
+    height: 250px;
   }
 
   .hero-wrapper {
@@ -392,52 +341,54 @@
     max-width: 100%;
   }
 
-  /* Para móviles */
   .character-card img {
     max-width: 80%;
     max-height: 80%;
-    object-fit: contain;
   }
- 
+
   .character-card {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     text-align: center;
-    
-}
-/*no mostrar imagen en dispositivos pequeños*/
-@media (max-width: 360px) {
-.hero-decorative-svg {
-    display: none;  
-}
+  }
 
-.character-card img {
-    width: 100%;
-    max-width: 200px; /* Ajusta según necesites */
-    height: auto;
-    margin-bottom: 10px;
-    
-}
-
-.card-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card-text {
-    text-align: center;
-}
-.dashboard-container{
-  padding-left:30px;
-  padding-right: 30px;
-
-
-}
   .brand-filter-btn {
     flex: none;
     width: 160px;
     height: 85px;
   }
-}}
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 20px 12px 40px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-decorative-svg {
+    display: none;
+  }
+
+  .character-card img {
+    max-width: 200px;
+  }
+
+  .card-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-text {
+    text-align: center;
+  }
+
+  .dashboard-container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

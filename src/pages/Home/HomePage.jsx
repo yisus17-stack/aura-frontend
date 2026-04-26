@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Film, Star, Heart, Library } from 'lucide-react';
+import { Sparkles, Film, Star, Library } from 'lucide-react';
 import logo from '../../assets/aura-logo-n.svg';
 import disneyLogo from '../../assets/disney-logo.png';
 import pixarLogo from '../../assets/logo-pixar.png';

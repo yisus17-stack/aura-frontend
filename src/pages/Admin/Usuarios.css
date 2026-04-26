@@ -101,6 +101,11 @@
 
 .aura-content-header {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 
 .header-info h1 {
@@ -114,6 +119,45 @@
   color: var(--text-sub);
   margin: 5px 0 0;
   font-size: 15px;
+}
+
+.btn-reload {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reload:hover:not(:disabled) {
+  background-color: #f8fafc;
+  color: #475569;
+}
+
+.btn-reload:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-reload svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-reload.spinning svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* CONTENEDOR DE TABLA (SCROLL) */
@@ -209,12 +253,17 @@
   }
 
   .header-info h1 {
-    font-size: 25px;
-    text-align: center;
+    font-size: 22px;
+    text-align: left;
   }
 
   .header-info p {
+    font-size: 12px;
+    text-align: left;
+  }
+  
+  .btn-reload {
+    padding: 8px 12px;
     font-size: 13px;
-    text-align: center;
   }
 }

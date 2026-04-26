@@ -95,7 +95,7 @@ const AppContent = ({ user, setUser }) => {
           <Route
             path="/usuarios"
             element={
-              user?.rol === 'Admin'
+              user?.rol?.toLowerCase() === 'admin'
                 ? <Usuarios setUser={setUser} /> // Pasamos setUser para el Sidebar de Admin
                 : <Navigate to="/" replace />
             }

@@ -68,7 +68,7 @@ const LogsTable = ({ data = [] }) => {
         <TableBody>
           {data.length > 0 ? (
             data.map((log, i) => (
-              <TableRow key={log._id || i}>
+              <TableRow key={log.id || log._id || i}>
 
                 <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
                   {getActionText(log.accion)}

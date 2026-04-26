@@ -19,7 +19,7 @@ const HomePage = ({ user }) => {
         
         <h1 className="hero-title-bold">
           Descubre la magia
-          en <span className="text-primary">Aura</span>
+          en Aura
         </h1>
         
         <p style={{marginBottom: 10}} className="hero-subtitle-flat">

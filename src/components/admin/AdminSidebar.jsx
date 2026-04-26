@@ -14,6 +14,11 @@ const AdminSidebar = ({ activeTab, setActiveTab, setUser }) => {
     logoutUser(setUser, navigate);
   };
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    setMobileOpen(false); // Cierra el menú en móviles al hacer clic
+  };
+
   return (
     <>
       <div className="mobile-top-bar">
@@ -37,21 +42,21 @@ const AdminSidebar = ({ activeTab, setActiveTab, setUser }) => {
 
         <nav className="aura-menu">
           <p className="menu-label">ADMINISTRACIÓN</p>
-          <button className={`aura-menu-item ${activeTab === 'usuarios' ? 'active' : ''}`} onClick={() => setActiveTab('usuarios')}>
+          <button className={`aura-menu-item ${activeTab === 'usuarios' ? 'active' : ''}`} onClick={() => handleTabClick('usuarios')}>
             <Users size={20} className="menu-icon" /><span className="menu-text">Usuarios</span>
           </button>
-          <button className={`aura-menu-item ${activeTab === 'logs' ? 'active' : ''}`} onClick={() => setActiveTab('logs')}>
+          <button className={`aura-menu-item ${activeTab === 'logs' ? 'active' : ''}`} onClick={() => handleTabClick('logs')}>
             <Activity size={20} className="menu-icon" /><span className="menu-text">Registros</span>
           </button>
           <p className="menu-label">CONTENIDO</p>
-          <button className={`aura-menu-item ${activeTab === 'personajes' ? 'active' : ''}`} onClick={() => setActiveTab('personajes')}>
+          <button className={`aura-menu-item ${activeTab === 'personajes' ? 'active' : ''}`} onClick={() => handleTabClick('personajes')}>
             <Swords size={20} className="menu-icon" /><span className="menu-text">Personajes</span>
           </button>
           <p className="menu-label">DASHBOARD</p>
             <button 
               className="aura-menu-item" 
               onClick={() => {
-                setActiveTab('dashboard');
+                setMobileOpen(false);
                 navigate('/dashboard');
               }}
             >

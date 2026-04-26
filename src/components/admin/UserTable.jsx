@@ -21,14 +21,14 @@ const UserTable = ({ data = [], onDelete }) => {
 
         <TableBody>
           {data.length > 0 ? (
-            data.map((u) => (
-              <TableRow key={u._id}>
+            data.map((u, i) => (
+              <TableRow key={u.id || u._id || i}>
                 <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
                   {u.nombre}
                 </TableCell>
                 <TableCell>{u.email}</TableCell>
                 <TableCell>
-                  <span className={`badge ${u.rol?.toLowerCase() === 'Admin' ? 'Admin' : 'user'}`}>
+                  <span className={`badge ${u.rol?.toLowerCase() === 'admin' ? 'Admin' : 'user'}`}>
                     {u.rol}
                   </span>
                 </TableCell>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Usuarios.css';
 import API from '../../api/axios';
-import Swal from 'sweetalert2';
+import { auraSwal as Swal } from '../../utils/swalConfig';
 
 // 🚀 Importamos el servicio centralizado
 import { logoutUser } from '../../services/authService';
@@ -14,7 +14,10 @@ import PersonajesTable from '../../components/admin/PersonajesTable';
 import Spinner from '../../components/ui/Spinner';
 
 const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
-  const [activeTab, setActiveTab] = useState('usuarios');
+  const [activeTab, setActiveTab] = useState(() => {
+    const saved = localStorage.getItem('adminActiveTab');
+    return ['usuarios', 'logs', 'personajes'].includes(saved) ? saved : 'usuarios';
+  });
   const [data, setData] = useState({
     usuarios: [],
     logs: [],
@@ -64,8 +67,9 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
   }, [handleLogout]);
 
   useEffect(() => {
-    fetchDataForTab('usuarios');
-  }, [fetchDataForTab]);
+    fetchDataForTab(activeTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // --- MÉTODOS DE ELIMINACIÓN ---
   const eliminarUsuario = (id) => {
@@ -74,8 +78,6 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
       text: "Esta acción no se puede deshacer",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#8b79a5',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
@@ -103,8 +105,6 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
       text: "Este personaje se eliminará permanentemente",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#ef4444',
-      cancelButtonColor: '#64748b',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
@@ -130,6 +130,7 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    localStorage.setItem('adminActiveTab', tab);
     if (!loadedTabs[tab]) {
       fetchDataForTab(tab);
     }
@@ -153,6 +154,52 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
               {activeTab === 'personajes' && 'Personajes'}
             </h1>
             <p>Administra los datos de la plataforma Aura</p>
+          </div>
+          
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {activeTab === 'logs' && data.logs.length > 0 && (
+              <button 
+                className="btn-reload"
+                style={{ color: '#ef4444', borderColor: '#fee2e2' }}
+                onClick={() => {
+                  Swal.fire({
+                    title: '¿Limpiar todos los logs?',
+                    text: "Se borrará todo el historial y no podrás recuperarlo.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, limpiar'
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                      setLoading(true);
+                      try {
+                        await API.delete('/logs');
+                        fetchDataForTab('logs');
+                        Swal.fire('¡Limpios!', 'El historial de logs está vacío.', 'success');
+                      } catch (error) {
+                        Swal.fire('Error', 'No se pudieron limpiar los logs', 'error');
+                        setLoading(false);
+                      }
+                    }
+                  });
+                }}
+                disabled={loading}
+                title="Limpiar todos los logs"
+              >
+                Limpiar Logs
+              </button>
+            )}
+
+            <button 
+              className={`btn-reload ${loading ? 'spinning' : ''}`}
+              onClick={() => fetchDataForTab(activeTab)}
+              disabled={loading}
+              title="Recargar datos"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              {loading ? 'Recargando...' : 'Recargar'}
+            </button>
           </div>
         </header>
 

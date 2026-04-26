@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { auraSwal as Swal } from '../../utils/swalConfig';
 import { getLoginError } from '../../utils/validations';
 import './LoginPage.css';
 import Input from '../../components/ui/Input';
@@ -12,16 +12,6 @@ const LoginPage = ({ setUser }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const auraStyle = {
-    background: '#fcfcfd',
-    color: '#4a4a4a',
-    confirmButtonColor: '#8b79a5',
-    iconColor: '#8b79a5',
-    backdrop: 'rgba(139, 121, 165, 0.25) blur(10px)',
-    width: '450px',
-    padding: '3rem'
-  };
-
   const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
   const handleLogin = async (e) => {
@@ -30,7 +20,6 @@ const LoginPage = ({ setUser }) => {
     const errorMessage = getLoginError(email, password);
     if (errorMessage) {
       Swal.fire({
-        ...auraStyle,
         title: 'Casi listo',
         text: errorMessage,
         icon: 'info',
@@ -46,7 +35,6 @@ const LoginPage = ({ setUser }) => {
       text: 'Conectando con el servidor...',
       allowOutsideClick: false,
       showConfirmButton: false,
-      ...auraStyle,
       didOpen: () => Swal.showLoading()
     });
 
@@ -83,7 +71,6 @@ const LoginPage = ({ setUser }) => {
       setLoading(false);
 
       Swal.fire({
-        ...auraStyle,
         title: 'Ingreso exitoso',
         text: `Bienvenido, ${usuario.nombre}`,
         icon: 'success',
@@ -91,7 +78,7 @@ const LoginPage = ({ setUser }) => {
         timer: 1500
       }).then(() => {
         setUser(usuario);
-        if (usuario.rol === 'Admin') {
+        if (usuario.rol?.toLowerCase() === 'admin') {
           navigate('/usuarios');
         } else {
           navigate('/dashboard');
@@ -101,7 +88,6 @@ const LoginPage = ({ setUser }) => {
       setLoading(false);
 
       Swal.fire({
-        ...auraStyle,
         title: 'Error de acceso',
         text: error.message,
         icon: 'error'

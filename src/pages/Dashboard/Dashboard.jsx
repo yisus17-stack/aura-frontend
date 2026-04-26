@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Trash2 } from 'lucide-react';
-import Swal from 'sweetalert2';
+import { auraSwal as Swal } from '../../utils/swalConfig';
 
 import API from '../../api/axios'; 
 import { normalizeImageUrl } from '../../utils/imageHelpers';
@@ -43,8 +43,6 @@ const Dashboard = ({ user }) => {
       text: "Esta acción no se puede deshacer",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#8b79a5',
-      cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(async (result) => {
@@ -135,7 +133,7 @@ const Dashboard = ({ user }) => {
                     <span className="badge-category">{p.categoria}</span>
                   </div>
 
-                  {user?.rol === 'Admin' && (
+                  {user?.rol?.toLowerCase() === 'admin' && (
                     <button 
                       onClick={(e) => eliminarPersonaje(e, p.id)}
                       className="btn-delete"

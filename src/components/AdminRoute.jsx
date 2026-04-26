@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 const AdminRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
-  if (!user || user.rol !== "Admin") {
+  if (!user || user.rol?.toLowerCase() !== "admin") {
     return <Navigate to="/dashboard" replace />;
   }
 

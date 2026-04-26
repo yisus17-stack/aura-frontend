@@ -7,7 +7,7 @@
   text-transform: uppercase;
 }
 
-.badge.admin { background: #c1cfeb; color: #3b4b6b; }
+.badge.admin, .badge.Admin { background: #e0f2fe; color: #0369a1; }
 .badge.user { background: #eec48a; color: #5c4425; }
 
 /* Footer simple */

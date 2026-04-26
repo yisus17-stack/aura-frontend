@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { auraSwal as Swal } from '../../utils/swalConfig';
 import { getRegisterError } from '../../utils/validations';
 import Form from '../../components/ui/Form';
 import Input from '../../components/ui/Input';
@@ -15,16 +15,6 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const auraStyle = {
-    background: '#fcfcfd',
-    color: '#4a4a4a',
-    confirmButtonColor: '#8b79a5',
-    iconColor: '#8b79a5',
-    backdrop: 'rgba(139, 121, 165, 0.25) blur(10px)',
-    width: '450px',
-    padding: '3rem'
-  };
-
   const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
   const handleRegister = async (e) => {
@@ -35,7 +25,6 @@ const RegisterPage = () => {
 
     if (errorMessage) {
       Swal.fire({
-        ...auraStyle,
         title: 'Casi listo...',
         text: errorMessage,
         icon: 'info',
@@ -50,7 +39,6 @@ const RegisterPage = () => {
       text: 'Cifrando tus datos en la base de datos de Aura...',
       allowOutsideClick: false,
       showConfirmButton: false,
-      ...auraStyle,
       didOpen: () => Swal.showLoading()
     });
 
@@ -69,7 +57,6 @@ const RegisterPage = () => {
 
       setLoading(false);
       Swal.fire({
-        ...auraStyle,
         title: 'Registro exitoso',
         text: `Bienvenido, ${nombre.split(' ')[0]}. Tu cuenta ha sido creada de forma segura.`,
         icon: 'success',
@@ -81,7 +68,6 @@ const RegisterPage = () => {
     } catch (error) {
       setLoading(false);
       Swal.fire({
-        ...auraStyle,
         title: 'Aviso',
         text: error.message,
         icon: 'warning'

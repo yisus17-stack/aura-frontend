@@ -130,7 +130,8 @@
   top: 0;
   right: -100%;
   width: 290px;
-  height: 100vh;
+  height: 100dvh;
+  height: 100vh; /* Fallback */
   background: white;
   z-index: 2000;
   display: flex;
@@ -212,7 +213,10 @@
 /* FOOTER */
 .drawer-footer {
   padding: 20px;
-  background: #f8fafc;
+  background: white;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
 }
 
 .user-info-mini {

@@ -34,7 +34,10 @@ const Navbar = ({ user, setUser }) => {
 
           <div className="desktop-menu-wrapper">
             <div className="nav-menu">
-              <Link to="/" className="nav-item">Inicio</Link>
+              <Link to="/" className="nav-item">
+                <Home size={18} />
+                <span>Inicio</span>
+              </Link>
               {user && (
                 <>
                   <Link to="/dashboard" className="nav-item">Dashboard</Link>

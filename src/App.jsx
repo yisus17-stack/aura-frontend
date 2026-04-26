@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
+// Componentes de Layout
 import Navbar from './components/layout/Navbar';
 import Breadcrumbs from './components/layout/Breadcrumbs';
 import logo from './assets/aura-logo-n.svg';
@@ -16,32 +17,38 @@ import Usuarios from './pages/Admin/Usuarios';
 import NotFound from './pages/NotFound/NotFound';
 import SitemapPage from './pages/Sitemap/SitemapPage';
 
+// Importamos el servicio centralizado (asegúrate de que la ruta sea correcta)
+import { logoutUser } from './services/authService';
+
 const AppContent = ({ user, setUser }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const isAuthPage =
-    location.pathname === '/login' || location.pathname === '/registro';
-
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/registro';
   const isAdminPage = location.pathname === '/usuarios';
 
+  // --- FUNCIÓN DE SALIDA RIFADA ---
+  // Ahora usa el servicio centralizado para asegurar que mande a Home
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
+    logoutUser(setUser, navigate);
   };
 
   return (
     <div className="app-container">
 
-      {/* NAVBAR */}
+      {/* NAVBAR: Se oculta en login/registro y en el panel de usuarios admin */}
       {!isAuthPage && !isAdminPage && (
-        <>
-          <Navbar user={user} onLogout={handleLogout} logo={logo} />
-          <Breadcrumbs />
-        </>
-      )}
+  <>
+    <Navbar 
+      key={user ? `auth-${user.id || 'ok'}` : 'guest'} 
+      user={user} 
+      setUser={setUser}
+    />
 
-      {/* CONTENIDO */}
+    
+  </>
+)}
+
       <div
         className={
           isAdminPage
@@ -52,51 +59,52 @@ const AppContent = ({ user, setUser }) => {
         }
       >
         <Routes>
-
+          {/* 🏠 HOME */}
           <Route path="/" element={<HomePage user={user} />} />
 
+          {/* 🔑 LOGIN */}
           <Route
             path="/login"
-            element={<LoginPage setUser={setUser} />}
+            element={!user ? <LoginPage setUser={setUser} /> : <Navigate to="/dashboard" replace />}
           />
 
+          {/* 📝 REGISTRO */}
           <Route path="/registro" element={<RegisterPage />} />
 
-          {/* 🔐 DASHBOARD */}
+          {/* 🔐 DASHBOARD: Redirige a HOME si no hay sesión */}
           <Route
             path="/dashboard"
             element={
               user
                 ? <Dashboard user={user} />
-                : <Navigate to="/login" replace />
+                : <Navigate to="/" replace /> 
             }
           />
 
-          {/* 🔐 DETALLE */}
+          {/* 🔐 DETALLE PERSONAJE: Redirige a HOME si no hay sesión */}
           <Route
             path="/personaje/:id"
             element={
               user
                 ? <CharacterDetail />
-                : <Navigate to="/login" replace />
+                : <Navigate to="/" replace />
             }
           />
 
-          {/* 🔥 ADMIN */}
+          {/* 🔥 PANEL ADMIN: Redirige a HOME si no es admin */}
           <Route
             path="/usuarios"
             element={
               user?.rol === 'Admin'
-                ? <Usuarios onLogout={handleLogout} />
-                : <Navigate to="/dashboard" replace />
+                ? <Usuarios setUser={setUser} /> // Pasamos setUser para el Sidebar de Admin
+                : <Navigate to="/" replace />
             }
           />
 
-          {/* 404 y Mapa del Sitio */}
+          {/* 📄 OTROS */}
           <Route path="/mapa-del-sitio" element={<SitemapPage />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
-
         </Routes>
       </div>
     </div>
@@ -104,17 +112,21 @@ const AppContent = ({ user, setUser }) => {
 };
 
 function App() {
-
-  // 🔥 ESTADO PERSISTENTE DESDE LOCALSTORAGE
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
+    try {
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      return null;
+    }
   });
 
-  // 🔄 SINCRONIZAR (opcional pero pro)
+  // Efecto para mantener sincronizado el localStorage con el estado
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
     }
   }, [user]);
 

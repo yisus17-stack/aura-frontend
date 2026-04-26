@@ -4,13 +4,16 @@ import './Usuarios.css';
 import API from '../../api/axios';
 import Swal from 'sweetalert2';
 
+// 🚀 Importamos el servicio centralizado
+import { logoutUser } from '../../services/authService';
+
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import UserTable from '../../components/admin/UserTable';
 import LogsTable from '../../components/admin/LogsTable';
 import PersonajesTable from '../../components/admin/PersonajesTable';
 import Spinner from '../../components/ui/Spinner';
 
-const Usuarios = () => {
+const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
   const [activeTab, setActiveTab] = useState('usuarios');
   const [data, setData] = useState({
     usuarios: [],
@@ -26,13 +29,11 @@ const Usuarios = () => {
 
   const navigate = useNavigate();
 
+  // --- 🔄 CAMBIO AQUÍ: Usamos el servicio centralizado ---
   const handleLogout = useCallback(() => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate('/login');
-  }, [navigate]);
+    logoutUser(setUser, navigate);
+  }, [setUser, navigate]);
 
-  // Usamos useCallback para poder re-utilizar la carga si es necesario
   const getEndpointByTab = (tab) => {
     if (tab === 'logs') return '/logs';
     if (tab === 'personajes') return '/personajes';
@@ -53,6 +54,7 @@ const Usuarios = () => {
       }));
     } catch (error) {
       console.error(`Error cargando ${tab}:`, error);
+      // Si el token expira (401), mandamos al Home mediante el logout centralizado
       if (error.response?.status === 401) {
         handleLogout();
       }
@@ -65,7 +67,7 @@ const Usuarios = () => {
     fetchDataForTab('usuarios');
   }, [fetchDataForTab]);
 
-
+  // --- MÉTODOS DE ELIMINACIÓN ---
   const eliminarUsuario = (id) => {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -95,36 +97,33 @@ const Usuarios = () => {
     }
   };
 
- const eliminarPersonaje = (id) => {
-  Swal.fire({
-    title: '¿Estás seguro?',
-    text: "Este personaje se eliminará permanentemente",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#ef4444',
-    cancelButtonColor: '#64748b',
-    confirmButtonText: 'Sí, eliminar',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      eliminarPersonajeConfirmado(id);
-    }
-  });
-};
+  const eliminarPersonaje = (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Este personaje se eliminará permanentemente",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarPersonajeConfirmado(id);
+      }
+    });
+  };
 
   const eliminarPersonajeConfirmado = async (id) => {
     try {
       await API.delete(`/personajes/${id}`);
-
       setData(prev => ({
         ...prev,
         personajes: prev.personajes.filter(p => p._id !== id)
       }));
-
       Swal.fire('Eliminado', 'Personaje borrado correctamente', 'success');
     } catch (error) {
       console.error("Error al eliminar personaje:", error);
-
       Swal.fire('Error', 'No se pudo eliminar el personaje', 'error');
     }
   };
@@ -138,10 +137,11 @@ const Usuarios = () => {
 
   return (
     <div className="aura-layout">
+      {/* 🚀 Pasamos setUser al Sidebar para que también pueda cerrar sesión */}
       <AdminSidebar
         activeTab={activeTab}
         setActiveTab={handleTabChange}
-        onLogout={handleLogout}
+        setUser={setUser} 
       />
 
       <main className="aura-main">
@@ -168,8 +168,8 @@ const Usuarios = () => {
               )}
               {activeTab === 'logs' && <LogsTable data={data.logs} />}
               {activeTab === 'personajes' && (
-               <PersonajesTable data={data.personajes} onDelete={eliminarPersonaje} />)
-              }
+                <PersonajesTable data={data.personajes} onDelete={eliminarPersonaje} />
+              )}
             </>
           )}
         </div>

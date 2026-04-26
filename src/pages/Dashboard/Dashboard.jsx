@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Trash2 } from 'lucide-react';
-import './Dashboard.css';
 import Swal from 'sweetalert2';
+
 import API from '../../api/axios'; 
 import { normalizeImageUrl } from '../../utils/imageHelpers';
+
+import Spinner from '../../components/ui/Spinner';
+import Breadcrumbs from '../../components/layout/Breadcrumbs';
+
+import './Dashboard.css';
 
 const Dashboard = ({ user }) => {
   const [personajes, setPersonajes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const obtenerPersonajes = async () => {
@@ -17,6 +23,8 @@ const Dashboard = ({ user }) => {
         setPersonajes(respuesta.data);
       } catch (error) {
         console.error("Error al conectar con la API:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,7 +36,7 @@ const Dashboard = ({ user }) => {
   );
 
   const eliminarPersonaje = async (e, id) => {
-    e.preventDefault(); // Evita que el Link nos mande a la página de detalle
+    e.preventDefault();
 
     Swal.fire({
       title: '¿Estás seguro?',
@@ -44,7 +52,6 @@ const Dashboard = ({ user }) => {
         try {
           await API.delete(`/personajes/${id}`); 
 
-          // 🔥 ACTUALIZACIÓN: Usamos p.id para filtrar el estado
           setPersonajes(prev => prev.filter((p) => p.id !== id));
 
           Swal.fire({
@@ -66,71 +73,90 @@ const Dashboard = ({ user }) => {
     });
   };
 
+  // 🔄 LOADING
+  if (loading) {
+    return <Spinner size="large" />;
+  }
+
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>Panel de Personajes</h1>
-        <p>
-          Bienvenido, <b>Yisus</b>. Tienes permisos de <b>{user?.rol}</b>.
-        </p>
-      </header>
 
-      <div className="search-bar">
-        <div className="search-container">
-          <Search className="search-icon" size={20} />
-          <input
-            type="text"
-            placeholder="Buscar por nombre en la bóveda..."
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            className="search-input"
-          />
+      {/* 🔥 BREADCRUMB */}
+      <Breadcrumbs nombre="Personajes" />
+
+      {/* HERO */}
+      <section className="dashboard-hero">
+        <div className="hero-wrapper">
+
+          {/* IZQUIERDA */}
+          <div className="hero-content">
+            <h1>Personajes</h1>
+            <p>Explora la bóveda y encuentra tus favoritos.</p>
+          </div>
+
+          {/* DERECHA */}
+          <div className="hero-search">
+            <Search className="search-icon" size={20} />
+            <input
+              type="text"
+              placeholder="Buscar personaje..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
         </div>
-      </div>
+      </section>
 
-      <div className="card-grid">
-        {personajesFiltrados.map((p) => (
-          <Link 
-            // 🔥 CAMBIO: p._id -> p.id
-            to={`/personaje/${p.id}`}
-            key={p.id} 
-            state={{ nombrePersonaje: p.nombre, personaje: p }}
-            className="character-card-link"
-          >
-            <div className="character-card">
-              <div className="image-container">
-                {/* 🔥 CAMBIO: p.imagen -> p.imagen_url */}
-                <img src={normalizeImageUrl(p.imagen_url)} alt={p.nombre} />
-              </div>
+      {/* CONTENIDO */}
+      <section className="dashboard-content">
+        <div className="card-grid">
+          {personajesFiltrados.map((p) => (
+            <Link 
+              to={`/personaje/${p.id}`}
+              key={p.id}
+              state={{ personaje: p }} // 🔥 importante
+              className="character-card-link"
+            >
+              <div className="character-card">
 
-              <div className="card-info">
-                <div className="card-text">
-                  <h3>{p.nombre}</h3>
-                  <p>{p.pelicula} ({p.anio})</p>
-                  <span className="badge-category">{p.categoria}</span>
+                <div className="image-container">
+                  <img
+                    src={normalizeImageUrl(p.imagen_url)}
+                    alt={p.nombre}
+                  />
                 </div>
-                
-                {user?.rol === 'Admin' && (
-                  <button 
-                    // 🔥 CAMBIO: p._id -> p.id
-                    onClick={(e) => eliminarPersonaje(e, p.id)}
-                    className="btn-delete"
-                    title="Eliminar personaje"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
 
-      {personajesFiltrados.length === 0 && (
-        <div className="empty-state">
-          <p>No se encontraron personajes en la bóveda.</p>
+                <div className="card-info">
+                  <div className="card-text">
+                    <h3>{p.nombre}</h3>
+                    <p>{p.pelicula} ({p.anio})</p>
+                    <span className="badge-category">{p.categoria}</span>
+                  </div>
+
+                  {user?.rol === 'Admin' && (
+                    <button 
+                      onClick={(e) => eliminarPersonaje(e, p.id)}
+                      className="btn-delete"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  )}
+                </div>
+
+              </div>
+            </Link>
+          ))}
         </div>
-      )}
+
+        {personajesFiltrados.length === 0 && (
+          <div className="empty-state">
+            <p>No se encontraron personajes.</p>
+          </div>
+        )}
+      </section>
+
     </div>
   );
 };

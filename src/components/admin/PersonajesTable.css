@@ -1,7 +1,6 @@
 .character-img {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
+  width: 120px;
+  height: auto;
   border-radius: 10px;
 }
 

@@ -43,7 +43,7 @@ const PersonajeTable = ({ data = [], onDelete }) => {
                     alt={p.nombre}
                     className="character-img"
                     // Agregamos un estilo preventivo por si la clase CSS falla
-                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '8px' }}
+            
                   />
                 </TableCell>
 

@@ -28,7 +28,7 @@ const UserTable = ({ data = [], onDelete }) => {
                 </TableCell>
                 <TableCell>{u.email}</TableCell>
                 <TableCell>
-                  <span className={`badge ${u.rol?.toLowerCase() === 'admin' ? 'admin' : 'user'}`}>
+                  <span className={`badge ${u.rol?.toLowerCase() === 'Admin' ? 'Admin' : 'user'}`}>
                     {u.rol}
                   </span>
                 </TableCell>

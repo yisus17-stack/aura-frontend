@@ -1,48 +1,68 @@
+/* --- SPINNER: CONTENEDOR CENTRADO EN PANTALLA --- */
 .spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  z-index: 9999;
 }
 
+/* --- WRAPPER DE LOS PUNTOS --- */
 .spinner-dots {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
-}
-
-.spinner-dots.small {
-  gap: 0.45rem;
-}
-
-.spinner-dots.medium {
-  gap: 0.6rem;
-}
-
-.spinner-dots.large {
   gap: 0.8rem;
 }
 
+/* --- TAMAÑOS --- */
+.spinner-dots.small {
+  gap: 0.5rem;
+}
+
+.spinner-dots.medium {
+  gap: 0.7rem;
+}
+
+.spinner-dots.large {
+  gap: 1rem;
+}
+
+/* --- PUNTOS BASE --- */
 .dot {
-  width: 10px;
-  height: 10px;
-  background: #3b82f6;
+  width: 14px;
+  height: 14px;
+  background: var(--aura-purple);
   border-radius: 50%;
-  opacity: 0.32;
+  opacity: 0.3;
   animation: dotPulse 0.9s ease-in-out infinite;
 }
 
+/* --- VARIANTES DE TAMAÑO --- */
 .spinner-dots.small .dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
+}
+
+.spinner-dots.medium .dot {
+  width: 14px;
+  height: 14px;
 }
 
 .spinner-dots.large .dot {
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
 }
 
+/* --- DELAY PARA EFECTO ONDA --- */
 .dot:nth-child(1) {
   animation-delay: 0s;
 }
@@ -55,6 +75,7 @@
   animation-delay: 0.3s;
 }
 
+/* --- ANIMACIÓN --- */
 @keyframes dotPulse {
   0%,
   100% {
@@ -64,10 +85,11 @@
 
   50% {
     opacity: 1;
-    transform: translateY(-6px);
+    transform: translateY(-10px);
   }
 }
 
+/* --- CUANDO SE USA EN TABLAS U OTRAS SECCIONES --- */
 .table-spinner-container {
   padding: 2.5rem 0;
   text-align: center;

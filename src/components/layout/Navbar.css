@@ -1,4 +1,4 @@
-:root {
+:root { 
   --aura-purple: #8b79a5;
   --aura-purple-dark: #2d2639;
   --aura-purple-soft: #f4f2f7;
@@ -7,15 +7,14 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* NAVBAR BASE (ESCRITORIO) */
+/* NAVBAR */
 .main-nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.8);
-
+  background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid #f1f5f9;
-  height: 72px;
+  height: 68px;
   display: flex;
   align-items: center;
 }
@@ -24,30 +23,52 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-logo img { height: 40px; }
+/* LOGO */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  margin-left: -6px;
+}
 
+.nav-logo img { 
+  height: 36px; 
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover img {
+  transform: scale(1.05);
+}
+
+/* DESKTOP MENU */
 .desktop-menu-wrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
-.nav-menu { display: flex; gap: 8px; }
+.nav-menu { 
+  display: flex; 
+  gap: 10px; 
+  align-items: center;
+}
 
-/* Estilos de links desktop */
 .nav-item, .nav-link-admin {
   text-decoration: none;
   color: var(--text-sub);
   font-weight: 600;
-  padding: 10px 16px;
+  font-size: 0.92rem;
+  padding: 8px 14px;
   border-radius: 10px;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-item:hover, .nav-link-admin:hover {
@@ -55,11 +76,26 @@
   color: var(--aura-purple);
 }
 
+.nav-link-admin {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+}
+
+.user-badge-nav {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--aura-purple);
+  background: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--aura-purple-soft);
+}
+
 .btn-logout-desktop {
   background: var(--aura-purple-soft);
   border: none;
   color: var(--aura-purple);
-  padding: 10px;
+  padding: 8px;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -71,87 +107,98 @@
   color: #ef4444;
 }
 
-/* GATILLO MÓVIL */
+/* 🔥 HAMBURGUESA (OCULTA EN DESKTOP) */
 .nav-toggle {
-  display: none;
-  background: var(--aura-purple-soft);
+  display: none; /* 🔥 clave */
+  background: transparent;
   border: none;
-  color: var(--aura-purple);
-  padding: 8px;
-  border-radius: 10px;
+  color: var(--text-main);
+  padding: 6px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
-/* === DRAWER MÓVIL (ESTILO SIDEBAR) === */
+.nav-toggle:hover {
+  color: var(--aura-purple);
+  transform: scale(1.05);
+}
+
+/* DRAWER */
 .aura-nav-drawer {
   position: fixed;
   top: 0;
-  right: -100%; /* Empieza afuera a la derecha */
-  width: 280px;
+  right: -100%;
+  width: 290px;
   height: 100vh;
   background: white;
   z-index: 2000;
   display: flex;
   flex-direction: column;
   transition: var(--transition);
-  box-shadow: -10px 0 30px rgba(0,0,0,0.05);
 }
 
 .aura-nav-drawer.mobile-open {
   right: 0;
 }
 
+/* HEADER DRAWER */
 .drawer-header {
-  padding: 20px 24px;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #f1f5f9;
 }
 
-.drawer-logo { height: 35px; }
+.drawer-logo { 
+  height: 32px; 
+}
 
 .close-drawer-btn {
-  background: var(--aura-purple-soft);
+  background: transparent;
   border: none;
-  color: var(--aura-purple);
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  color: var(--text-main);
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
-/* CONTENIDO DRAWER */
+.close-drawer-btn:hover {
+  color: var(--aura-purple);
+}
+
+/* MENU */
 .drawer-menu {
   flex: 1;
-  padding: 20px 15px;
+  padding: 20px 14px;
 }
 
 .menu-label {
   font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-sub);
-  margin: 20px 0 10px 12px;
+  font-weight: 800;
+  color: #cbd5e1;
+  margin: 20px 0 10px 10px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .drawer-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px;
+  padding: 12px 14px;
   text-decoration: none;
   color: var(--text-sub);
   font-weight: 600;
   border-radius: 12px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   transition: var(--transition);
 }
 
-.drawer-item:hover, .drawer-item.active {
+.drawer-item:hover {
   background: var(--aura-purple-soft);
   color: var(--aura-purple);
 }
@@ -161,41 +208,50 @@
   background: var(--aura-purple-soft);
 }
 
-/* FOOTER / LOGOUT CARD */
+/* FOOTER */
 .drawer-footer {
   padding: 20px;
+  background: #f8fafc;
+}
+
+.user-info-mini {
+  margin-bottom: 12px;
+}
+
+.user-info-mini p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.user-info-mini span {
+  font-size: 0.75rem;
+  color: var(--aura-purple);
 }
 
 .logout-card {
   background: var(--aura-purple);
   border-radius: 14px;
-  overflow: hidden;
 }
 
 .full-logout-btn {
   width: 100%;
-  padding: 15px;
+  padding: 14px;
   background: transparent;
   border: none;
   color: white;
   font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 10px;
   cursor: pointer;
-  transition: var(--transition);
-}
-
-.full-logout-btn:hover {
-  background: var(--aura-purple-dark);
 }
 
 /* OVERLAY */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(30, 41, 59, 0.4);
+  background: rgba(15, 23, 42, 0.45);
   z-index: 1500;
   opacity: 0;
   pointer-events: none;
@@ -207,8 +263,22 @@
   pointer-events: auto;
 }
 
-/* RESPONSIVE */
+/* 📱 MOBILE */
 @media (max-width: 768px) {
-  .desktop-menu-wrapper { display: none; }
-  .nav-toggle { display: block; }
+
+  .desktop-menu-wrapper { 
+    display: none; 
+  }
+
+  .nav-toggle { 
+    display: flex; /* 🔥 SOLO aquí aparece */
+  }
+
+  .nav-container {
+    padding: 0 10px;
+  }
+
+  .nav-logo {
+    margin-left: -8px;
+  }
 }

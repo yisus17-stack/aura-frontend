@@ -40,7 +40,10 @@ const Navbar = ({ user, setUser }) => {
               </Link>
               {user && (
                 <>
-                  <Link to="/dashboard" className="nav-item">Dashboard</Link>
+                   <Link to="/dashboard" className="nav-item">
+                    <LayoutDashboard size={18} />
+                    <span>Dashboard</span>
+                  </Link>
                   {user.rol?.toLowerCase() === 'admin' && (
                     <Link to="/usuarios" className="nav-link-admin">
                       <ShieldCheck size={18} />

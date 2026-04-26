@@ -22,7 +22,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- 2. COMPONENTES DE LAYOUT (Navbar & Breadcrumbs) --- */
+/* --- 2. LAYOUT PRINCIPAL --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-layout-content {
+  flex: 1;
+  display: flex;
+}
+
+.auth-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- 3. COMPONENTES DE LAYOUT (Navbar & Breadcrumbs) --- */
 .main-nav {
   position: sticky;
   top: 0;
@@ -35,9 +60,7 @@ body {
   align-items: center;
 }
 
-/* ... (Aquí pegas el resto del código de la sección 2 y 3 que ya tienes) ... */
-
-/* --- 3. BOTONES GLOBALES --- */
+/* --- 4. BOTONES GLOBALES --- */
 .btn-primary {
   background: var(--primary);
   color: white;

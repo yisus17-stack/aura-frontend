@@ -4,6 +4,7 @@ import { Sparkles, Film, Star, Heart, Library } from 'lucide-react';
 import logo from '../../assets/aura-logo-n.svg';
 import disneyLogo from '../../assets/disney-logo.png';
 import pixarLogo from '../../assets/logo-pixar.png';
+import dreamworksLogo from '../../assets/dreamkorks-logo.png';
 import './HomePage.css';
 
 const HomePage = ({ user }) => {
@@ -54,6 +55,11 @@ const HomePage = ({ user }) => {
               <h3>El Mundo de Pixar</h3>
               <p>Adéntrate en la tecnología y el corazón de Pixar. Descubre los secretos detrás de tus películas favoritas.</p>
             </div>
+            <div className="info-card">
+              <Film className="icon-purp" size={32} />
+              <h3>DreamWorks</h3>
+              <p>Explora el humor y la creatividad de DreamWorks Animation, desde Shrek hasta Cómo entrenar a tu dragón.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -71,6 +77,9 @@ const HomePage = ({ user }) => {
             </div>
             <div className="brand-logo">
               <img src={pixarLogo} alt="Pixar logo" />
+            </div>
+            <div className="brand-logo">
+              <img src={dreamworksLogo} alt="Dreamworks logo" />
             </div>
           </div>
         </div>
@@ -98,26 +107,6 @@ const HomePage = ({ user }) => {
         </div>
       </section>
 
-      {/* --- MINI FOOTER SIMPLE --- */}
-      <footer className="mini-footer-aura">
-        <div className="footer-top">
-          <div className="breadcrumbs">Aura / Inicio</div>
-          <nav className="footer-map">
-            <Link to="/">Inicio</Link>
-            <Link to="/login">Entrar</Link>
-            <Link to="/mapa-del-sitio">Mapa del Sitio</Link>
-          </nav>
-        </div>
-        <div className="footer-bottom">
-          <div className="footer-brand">
-            <img src={logo} alt="Aura Logo" className="mini-logo" />
-            <span>Aura Project &copy; 2026</span>
-          </div>
-          <div className="api-status">
-            <span className="status-dot"></span> Online
-          </div>
-        </div>
-      </footer>
     </main>
   );
 };

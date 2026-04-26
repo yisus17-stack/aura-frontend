@@ -39,7 +39,7 @@
 /* --- GRID (4 / 3 / 2 / 1) --- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: clamp(16px, 3vw, 26px);
 }
 
@@ -312,15 +312,13 @@
 /* --- BRAND FILTERS --- */
 .brand-filters-container {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin-top: 10px;
   margin-bottom: 30px;
   width: 100%;
   overflow-x: auto;
-  padding-bottom: 20px; /* espacio para scroll */
+  padding: 5px 5px 20px 5px;
   -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .brand-filters-container::-webkit-scrollbar {
@@ -328,10 +326,10 @@
 }
 
 .brand-filter-btn {
-  flex: 1;
-  min-width: 0; /* Para evitar desbordamientos en flex */
-  height: 90px;
-  border-radius: 12px;
+  flex-shrink: 0;
+  width: 150px;
+  height: 85px;
+  border-radius: 16px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: #f8f9fb;
   display: flex;
@@ -354,8 +352,8 @@
 }
 
 .brand-filter-logo {
-  max-width: 100px;
-  max-height: 70px;
+  max-width: 140px;
+  max-height: 85px;
   object-fit: contain;
   position: relative;
   z-index: 2;

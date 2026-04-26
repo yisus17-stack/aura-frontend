@@ -158,8 +158,7 @@ const CharacterDetail = () => {
 
         </aside>
 
-      </div>
-    </div>
+      </div>    </div>
   );
 };
 

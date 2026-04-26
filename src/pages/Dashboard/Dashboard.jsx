@@ -13,17 +13,20 @@ import './Dashboard.css';
 
 import disneyLogo from '../../assets/disney-logo.png';
 import pixarLogo from '../../assets/logo-pixar.png';
+import dreamworksLogo from '../../assets/dreamkorks-logo.png';
 import palomitasImg from '../../assets/palomitas.png';
 
 const categoryLogos = {
   'Disney': disneyLogo,
-  'Pixar': pixarLogo
+  'Pixar': pixarLogo,
+  'DreamWorks': dreamworksLogo
 };
 
 const categoryColors = {
 'Todo': '#a695bcff',     // Lila Aura
   'Disney': '#1a207a',   // Azul exacto (Disney)
-  'Pixar': '#b0c6e6'     // Azul exacto (Pixar)
+  'Pixar': '#b0c6e6',    // Azul exacto (Pixar)
+  'DreamWorks': '#082e6d' // Azul/Celeste Dreamworks
 };
 
 const Dashboard = ({ user }) => {
@@ -47,15 +50,19 @@ const Dashboard = ({ user }) => {
     obtenerPersonajes();
   }, []);
 
-  // Extraer categorías únicas de la base de datos
-  const categoriasUnicas = ['Todo', ...new Set(personajes.map(p => p.categoria).filter(Boolean))];
+  // Forzamos que las marcas principales siempre aparezcan en los filtros
+  const categoriasPrincipales = ['Todo', 'Disney', 'Pixar', 'DreamWorks'];
+  const otrasCategorias = [...new Set(personajes.map(p => p.categoria).filter(cat => cat && !categoriasPrincipales.includes(cat)))];
+  const categoriasUnicas = [...categoriasPrincipales, ...otrasCategorias];
 
-  // Filtrado combinado: búsqueda + categoría
-  const personajesFiltrados = personajes.filter((p) => {
-    const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
-    const coincideCategoria = filtroCategoria === 'Todo' || p.categoria === filtroCategoria;
-    return coincideBusqueda && coincideCategoria;
-  });
+  // Filtrado y ordenado combinado
+  const personajesFiltrados = personajes
+    .filter((p) => {
+      const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
+      const coincideCategoria = filtroCategoria === 'Todo' || p.categoria === filtroCategoria;
+      return coincideBusqueda && coincideCategoria;
+    })
+    .sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   const eliminarPersonaje = async (e, id) => {
     e.preventDefault();
@@ -209,7 +216,6 @@ const Dashboard = ({ user }) => {
           </>
         )}
       </section>
-
     </div>
   );
 };

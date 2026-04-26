@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 // Componentes de Layout
 import Navbar from './components/layout/Navbar';
 import Breadcrumbs from './components/layout/Breadcrumbs';
+import Footer from './components/layout/Footer';
 import logo from './assets/aura-logo-n.svg';
 import './App.css';
 
@@ -107,6 +108,9 @@ const AppContent = ({ user, setUser }) => {
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </div>
+
+      {/* FOOTER GLOBAL: Se muestra en todas las páginas excepto login/registro y panel admin */}
+      {!isAuthPage && !isAdminPage && <Footer />}
     </div>
   );
 };

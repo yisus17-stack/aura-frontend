@@ -213,11 +213,11 @@
 
 /* FOOTER */
 .drawer-footer {
-  padding: 20px 20px 40px 20px; /* Extra padding for mobile navigation bars */
-  background: #f8fafc;
+  padding: 15px 20px 80px 20px; /* Much more padding to clear mobile OS bars */
+  background: white;
   border-top: 1px solid #f1f5f9;
   flex-shrink: 0;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 -10px 15px rgba(0,0,0,0.03);
 }
 
 .user-info-mini {

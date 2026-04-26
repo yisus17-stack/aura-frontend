@@ -326,9 +326,9 @@
 }
 
 .brand-filter-btn {
-  flex-shrink: 0;
-  width: 150px;
-  height: 85px;
+  flex: 1;
+  min-width: 200px;
+  height: 110px;
   border-radius: 16px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: #f8f9fb;
@@ -435,8 +435,9 @@
 
 
 }
-.brand-filter-logo{
-  max-width: 70px;
-  max-height: 70px;
+  .brand-filter-btn {
+    flex: none;
+    width: 160px;
+    height: 85px;
+  }
 }
-}}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Trash2 } from 'lucide-react';
+import { Search, Trash2, ChevronRight } from 'lucide-react';
 import { auraSwal as Swal } from '../../utils/swalConfig';
 
 import API from '../../api/axios'; 
@@ -104,7 +104,7 @@ const Dashboard = ({ user }) => {
     <div className="dashboard-container">
 
       {/* 🔥 BREADCRUMB */}
-      <Breadcrumbs nombre="Personajes" />
+      <Breadcrumbs nombre="Colección" />
 
       {/* HERO */}
       <section className="dashboard-hero">
@@ -119,8 +119,8 @@ const Dashboard = ({ user }) => {
 
           {/* IZQUIERDA */}
           <div className="hero-content">
-            <h1>Personajes</h1>
-            <p>Explora la bóveda y encuentra tus favoritos.</p>
+            <h1>Tu Colección</h1>
+            <p>Explora los protagonistas de tus películas favoritas.</p>
           </div>
 
           {/* DERECHA */}
@@ -201,6 +201,11 @@ const Dashboard = ({ user }) => {
                           <Trash2 size={18} />
                         </button>
                       )}
+                    </div>
+                    
+                    <div className="card-hover-hint">
+                      <span>Ver detalles</span>
+                      <ChevronRight size={14} />
                     </div>
 
                   </div>

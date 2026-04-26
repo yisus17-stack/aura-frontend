@@ -39,7 +39,7 @@
 /* --- GRID (4 / 3 / 2 / 1) --- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 3vw, 26px);
 }
 
@@ -59,16 +59,14 @@
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
-  transition: 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.04);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border: 1px solid #e8e8e8; 
+ 
 }
 
 .character-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 35px rgba(255, 255, 255, 0.08);
 }
-
 /* --- IMAGEN --- */
 .image-container {
   width: 100%;
@@ -77,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(12px, 3vw, 18px);
+  padding: clamp(12px, 3vw, 30px);
 }
 
 .character-card img {
@@ -160,37 +158,9 @@
 }
 
 /* --- SPINNER GRANDE CENTRADO --- */
-.spinner-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(255, 255, 255, 0.7);
 
 
-  z-index: 9999;
-}
 
-.spinner {
-  width: 70px;
-  height: 70px;
-  border: 5px solid #eee;
-  border-top: 5px solid var(--primary);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 /* --- BREAKPOINTS --- */
 
@@ -245,9 +215,25 @@
   border-radius: 24px;
   padding: clamp(24px, 5vw, 50px);
   margin-bottom: 40px;
-
+  height: 250px;
   background: #f5f6fa;
   border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* SVG Decorativo en el fondo de la card */
+.hero-decorative-svg {
+  position: absolute;
+  top: -80px;
+  right:-330px;
+  width: 800px;
+  height: auto;
+  opacity: 0.6; /* Alta opacidad porque es una imagen detallada */
+  z-index: 0;
+  pointer-events: none;
+  transform: rotate(-15deg);
+
 }
 
 /* layout horizontal */
@@ -257,6 +243,8 @@
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1; /* Mantener encima del color */
 }
 
 /* texto */
@@ -268,6 +256,7 @@
   margin: 0 0 8px;
   font-size: clamp(2rem, 5vw, 2.6rem);
   font-weight: 700;
+  margin-top: 20px;
 }
 
 .dashboard-hero p {
@@ -280,18 +269,29 @@
 .hero-search {
   position: relative;
   width: 100%;
-  max-width: 340px;
+  max-width: 400px;
+  margin-right: 10px;
+  margin-top: 20px;
+
 }
 
 /* mejora visual del input */
+/*despues de hacer clic en el input no mostrar el borde por defecto*/
+.hero-search .search-input:focus {
+  outline: none;
+}
+
 .hero-search .search-input {
   width: 100%;
+  height: 60px !important;
   padding: 12px 14px 12px 42px !important;
   border-radius: 12px;
   border: 1px #e7e7e7 solid;
   background: #fff;
   font-size: 0.9rem;
   transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
 
 }
 
@@ -309,8 +309,82 @@
   color: var(--text-muted);
 }
 
+/* --- BRAND FILTERS --- */
+.brand-filters-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 20px; /* espacio para scroll */
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.brand-filters-container::-webkit-scrollbar {
+  display: none;
+}
+
+.brand-filter-btn {
+  flex: 1;
+  min-width: 0; /* Para evitar desbordamientos en flex */
+  height: 90px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f8f9fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-filter-btn:hover {
+  background: #f1f3f5;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.brand-filter-btn.active {
+  border-color: var(--brand-color);
+  background: var(--brand-color);
+}
+
+.brand-filter-logo {
+  max-width: 100px;
+  max-height: 70px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.brand-filter-btn.active .brand-filter-logo {
+  filter: brightness(0) invert(1);
+}
+
+.brand-filter-text {
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  color: #475569;
+  font-size: 1.3rem;
+
+}
+
+.brand-filter-btn.active .brand-filter-text {
+  color: #ffffff;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+  .dashboard-hero{
+    height:250px;
+  }
+
   .hero-wrapper {
     flex-direction: column;
     align-items: flex-start;
@@ -319,4 +393,52 @@
   .hero-search {
     max-width: 100%;
   }
+
+  /* Para móviles */
+  .character-card img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+ 
+  .character-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
 }
+/*no mostrar imagen en dispositivos pequeños*/
+@media (max-width: 360px) {
+.hero-decorative-svg {
+    display: none;  
+}
+
+.character-card img {
+    width: 100%;
+    max-width: 200px; /* Ajusta según necesites */
+    height: auto;
+    margin-bottom: 10px;
+    
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-text {
+    text-align: center;
+}
+.dashboard-container{
+  padding-left:30px;
+  padding-right: 30px;
+
+
+}
+.brand-filter-logo{
+  max-width: 70px;
+  max-height: 70px;
+}
+}}

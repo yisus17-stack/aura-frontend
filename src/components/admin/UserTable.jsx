@@ -12,10 +12,11 @@ const UserTable = ({ data = [], onDelete }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead style={{ width: '80px' }}>Avatar</TableHead>
             <TableHead>Nombre</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Rol</TableHead>
-            <TableHead className="text-center">Acciones</TableHead>
+            <TableHead style={{ width: '120px' }}>Rol</TableHead>
+            <TableHead style={{ width: '100px' }} className="text-center">Acciones</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -23,31 +24,37 @@ const UserTable = ({ data = [], onDelete }) => {
           {data.length > 0 ? (
             data.map((u, i) => (
               <TableRow key={u.id || u._id || i}>
-                <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
+                <TableCell>
+                  <div className="user-avatar-circle" style={{ 
+                    background: u.rol?.toLowerCase() === 'admin' ? '#f0ebf8' : '#f8f9fb',
+                    color: u.rol?.toLowerCase() === 'admin' ? '#9b89b5' : '#64748b'
+                  }}>
+                    {u.nombre?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                </TableCell>
+                <TableCell style={{ color: '#1e293b' }}>
                   {u.nombre}
                 </TableCell>
                 <TableCell>{u.email}</TableCell>
                 <TableCell>
-                  <span className={`badge ${u.rol?.toLowerCase() === 'admin' ? 'Admin' : 'user'}`}>
+                  <span className={`badge-aura-role ${u.rol?.toLowerCase() === 'admin' ? 'admin' : 'user'}`}>
                     {u.rol}
                   </span>
                 </TableCell>
-                <TableCell>
-                 
+                <TableCell className="text-center">
                     <button 
                       className="btn-delete" 
-                      onClick={() => onDelete(u._id)}
+                      onClick={() => onDelete(u.id || u._id)}
                       title="Eliminar usuario"
                     >
                       <Trash2 size={18} />
                     </button>
-                  
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan="4" className="empty">
+              <TableCell colSpan="5" className="empty">
                 No hay usuarios registrados aún.
               </TableCell>
             </TableRow>

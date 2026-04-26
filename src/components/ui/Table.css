@@ -1,110 +1,105 @@
 /* CONTENEDOR CON SCROLL Y BORDES REDONDEADOS */
 .table-scroll-container {
   width: 100%;
-  overflow-x: auto; /* Permite scroll horizontal en móvil */
-  border: 1px solid #e8ecf1; /* El borde gris claro de la imagen */
-  border-radius: 7px; /* Redondeado total de la tabla */
+  overflow-x: auto; /* Habilitar scroll horizontal */
+  border: 1px solid #e8ecf1;
+  border-radius: 12px;
   background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
 /* LA TABLA */
 .aura-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 14px;
-  min-width: 600px; /* Evita que las columnas se aplasten en móvil */
+}
+
+/* RESPONSIVE: Forzar scroll horizontal en móviles */
+@media (max-width: 768px) {
+  .aura-table {
+    min-width: 800px; /* Asegura que la tabla no se aplaste y aparezca el scroll */
+    table-layout: auto; /* Permite que las columnas se ajusten a su contenido */
+  }
 }
 
 /* HEADER (ENCABEZADO) */
 .aura-thead {
-  background-color:#9b89b5/* Fondo blanco como en la imagen */
-
-} 
-/*al presionar el header no se vea blanco, sino el mismo color de hover para que no cambie agregar funcion*/
-
-
+  background-color: #9b89b5 !important;
+}
 
 .aura-th {
-  padding: 16px 20px;
+  padding: 18px 20px;
   text-align: left;
   font-weight: 600;
-  color: white; /* Texto morado como en la imagen */
-  text-transform: capitalize;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+  white-space: nowrap; /* Evita que los títulos se rompan en varias líneas */
 }
 
 /* FILAS */
 .aura-tr {
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* Quitar el borde a la última fila para no romper el redondeado inferior */
 .aura-tr:last-child {
   border-bottom: none;
 }
 
-.aura-tr:hover {
-  background-color: #f3f5f8; /* Efecto hover sutil */
-}
-.aura-thead,
-.aura-thead tr,
-.aura-thead th {
-  background-color: #9b89b5 !important;
-  color: white;
+.aura-tbody .aura-tr:hover {
+  background-color: #f8fafc;
 }
 
 /* CELDAS */
 .aura-td {
   padding: 16px 20px;
   vertical-align: middle;
-  color: #1e293b;
+  color: #334155;
   line-height: 1.5;
+  white-space: nowrap; /* Evita que el contenido se amontone en móvil */
 }
 
-/* BOTONES DE ACCIÓN (ESTILO IMAGEN) solo es un botón eliminar */
-.action-buttons {
-    display: flex;
-    justify-content: left
-
+/* Permitir wrap en columnas largas (como descripción) */
+.aura-td.wrap-content {
+  white-space: normal;
+  min-width: 250px;
 }
 
-
-
-/* Botón Editar (Blanco con borde) */
-.btn-edit-aura {
-  background: white;
-  border: 1px solid #e2e8f0;
-  color: #1e293b;
-  padding: 8px 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
+/* UTILIDADES */
+.text-center {
+  text-align: center !important;
 }
 
-.btn-edit-aura:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
+.text-center button {
+  display: inline-flex !important;
+  margin: 0 auto;
 }
 
-/* PERSONALIZACIÓN DEL SCROLLBAR (Para que no se vea feo en Windows) */
+.text-right {
+  text-align: right !important;
+}
+
+/* SCROLLBAR */
 .table-scroll-container::-webkit-scrollbar {
-  height: 6px;
+  height: 8px; /* Un poco más grueso para tocarlo fácil en móvil */
 }
 
 .table-scroll-container::-webkit-scrollbar-track {
-  background: transparent;
+  background: #f1f5f9;
+  border-radius: 10px;
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: #cbd5e1;
   border-radius: 10px;
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: #94a3b8;
 }

@@ -55,7 +55,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
         ...prev,
         [tab]: true
       }));
-    } catch {
+    } catch (error) {
       console.error(`Error cargando ${tab}`);
       // Si el token expira (401), mandamos al Home mediante el logout centralizado
       if (error.response?.status === 401) {

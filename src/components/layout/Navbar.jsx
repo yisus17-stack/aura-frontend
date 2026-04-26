@@ -9,14 +9,27 @@ const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
   }, [location.pathname]);
+
+  // Cerrar dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isDropdownOpen && !event.target.closest('.nav-user-container')) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isDropdownOpen]);
 
   const handleLogout = () => {
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
     logoutUser(setUser, navigate);
   };
 
@@ -56,11 +69,28 @@ const Navbar = ({ user, setUser }) => {
             </div>
 
             {user ? (
-              <div className="nav-menu">
-                <span className="user-badge-nav">{user.nombre?.split(' ')[0]}</span>
-                <button className="btn-logout-desktop" onClick={handleLogout}>
-                  <LogOut size={18} />
-                </button>
+              <div className="nav-user-container">
+                <div 
+                  className={`nav-avatar-circle ${user.rol?.toLowerCase() === 'admin' ? 'admin' : ''}`}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  title="Cuenta"
+                >
+                  {user.nombre?.charAt(0).toUpperCase()}
+                </div>
+
+                {isDropdownOpen && (
+                  <div className="nav-dropdown-mini">
+                    <div className="dropdown-info">
+                      <p className="d-name">{user.nombre}</p>
+                      <p className="d-role">{user.rol}</p>
+                    </div>
+                    <div className="d-divider"></div>
+                    <button className="d-item logout" onClick={handleLogout}>
+                      <LogOut size={16} />
+                      <span>Cerrar Sesión</span>
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <Link to="/login" className="nav-item">Iniciar Sesión</Link>
@@ -94,6 +124,15 @@ const Navbar = ({ user, setUser }) => {
         </nav>
         {user && (
           <div className="drawer-footer">
+            <div className="user-info-drawer">
+              <div className={`nav-avatar-circle ${user.rol?.toLowerCase() === 'admin' ? 'admin' : ''}`}>
+                {user.nombre?.charAt(0).toUpperCase()}
+              </div>
+              <div className="user-details">
+                <p className="user-name">{user.nombre}</p>
+                <p className="user-role">{user.rol}</p>
+              </div>
+            </div>
             <div className="logout-card">
               <button className="full-logout-btn" onClick={handleLogout}>
                 <LogOut size={20} /><span>Cerrar Sesión</span>

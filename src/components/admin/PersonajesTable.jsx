@@ -32,7 +32,7 @@ const PersonajeTable = ({ data = [], onDelete }) => {
             data.map((p) => (
               // 1. Cambiamos p._id por p.id (Estilo SQL)
               <TableRow key={p.id}>
-                <TableCell style={{ fontWeight: '600', color: '#1e293b' }}>
+                <TableCell style={{ color: '#1e293b' }}>
                   {p.nombre}
                 </TableCell>
 
@@ -47,7 +47,7 @@ const PersonajeTable = ({ data = [], onDelete }) => {
                   />
                 </TableCell>
 
-                <TableCell>{p.descripcion}</TableCell>
+                <TableCell className="wrap-content">{p.descripcion}</TableCell>
 
                 <TableCell>{p.pelicula}</TableCell>
 

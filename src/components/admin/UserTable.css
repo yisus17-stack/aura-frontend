@@ -1,28 +1,60 @@
-/* Badge minimalista */
-.badge {
-  padding: 4px 10px;
-  border-radius: 6px;
+.user-table-container {
+  width: 100%;
+}
+
+/* Avatar Circle */
+.user-avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Badge de Rol Estilo Aura */
+.badge-aura-role {
+  padding: 6px 14px;
+  border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
 }
 
-.badge.admin, .badge.Admin { background: #e0f2fe; color: #0369a1; }
-.badge.user { background: #eec48a; color: #5c4425; }
+.badge-aura-role.admin {
+  background: #f0ebf8;
+  color: #9b89b5;
+  border: 1px solid rgba(155, 137, 181, 0.2);
+}
 
-/* Footer simple */
+.badge-aura-role.user {
+  background: #f8f9fb;
+  color: #64748b;
+  border: 1px solid #e8ecf1;
+}
+
+/* Footer de Tabla */
 .table-footer-simple {
   margin-top: 15px;
   padding: 10px;
   text-align: right;
   font-size: 13px;
-  color: #64748b;
-  border-top: 1px solid #f1f5f9;
+  color: #94a3b8;
+  font-weight: 500;
 }
 
-/* Botón de acción */
-.action-buttons {
-  display: flex;
-  justify-content: center;
+/* Alineación de Acciones */
+.text-center {
+  text-align: center;
 }
 
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+}

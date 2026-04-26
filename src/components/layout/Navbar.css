@@ -81,35 +81,120 @@
   color: var(--aura-purple);
 }
 
-.user-badge-nav {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--aura-purple);
-  background: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--aura-purple-soft);
+/* AVATAR */
+.nav-user-container {
+  display: flex;
+  align-items: center;
 }
 
-.btn-logout-desktop {
-  background: var(--aura-purple-soft);
-  border: none;
-  color: var(--aura-purple);
-  padding: 8px;
-  border-radius: 10px;
-  cursor: pointer;
+.nav-avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  background: #f8f9fb;
+  color: #64748b;
+  border: 1px solid #e8ecf1;
+  cursor: pointer;
   transition: var(--transition);
 }
 
-.btn-logout-desktop:hover {
-  background: #fee2e2;
+.nav-avatar-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.nav-avatar-circle.admin {
+  background: #f0ebf8;
+  color: #9b89b5;
+  border-color: rgba(155, 137, 181, 0.2);
+}
+
+/* MINI DROPDOWN */
+.nav-user-container {
+  position: relative;
+}
+
+.nav-dropdown-mini {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 180px;
+  background: white;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 8px;
+  z-index: 1200;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-info {
+  padding: 8px 12px;
+}
+
+.d-name {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.d-role {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--aura-purple);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.d-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 6px 0;
+}
+
+.d-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.d-item:hover {
+  background: var(--aura-purple-soft);
+  color: var(--aura-purple);
+}
+
+.d-item.logout:hover {
+  background: #fef2f2;
   color: #ef4444;
 }
 
-/* 🔥 HAMBURGUESA (OCULTA EN DESKTOP) */
+/* HAMBURGER */
 .nav-toggle {
-  display: none; /* 🔥 clave */
+  display: none;
   background: transparent;
   border: none;
   color: var(--text-main);
@@ -129,15 +214,14 @@
   position: fixed;
   top: 0;
   right: -100%;
-  width: 290px;
-  height: 90dvh;
-  height: 100vh; /* Fallback */
+  width: 320px;
+  height: 100vh;
   background: white;
   z-index: 2000;
   display: flex;
   flex-direction: column;
   transition: var(--transition);
-  overflow: hidden; /* Prevent entire drawer from scrolling */
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
 .aura-nav-drawer.mobile-open {
@@ -211,28 +295,37 @@
   background: var(--aura-purple-soft);
 }
 
-/* FOOTER */
+/* FOOTER DRAWER */
 .drawer-footer {
-  padding: 15px 20px 80px 20px; /* Much more padding to clear mobile OS bars */
+  padding: 15px 20px 80px 20px;
   background: white;
   border-top: 1px solid #f1f5f9;
   flex-shrink: 0;
   box-shadow: 0 -10px 15px rgba(0,0,0,0.03);
 }
 
-.user-info-mini {
-  margin-bottom: 12px;
+.user-info-drawer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 5px;
 }
 
-.user-info-mini p {
+.user-details .user-name {
   margin: 0;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
 }
 
-.user-info-mini span {
+.user-details .user-role {
+  margin: 0;
   font-size: 0.75rem;
   color: var(--aura-purple);
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.05em;
 }
 
 .logout-card {
@@ -271,22 +364,19 @@
 
 /* 📱 MOBILE */
 @media (max-width: 768px) {
-
   .desktop-menu-wrapper { 
     display: none; 
   }
 
   .nav-toggle { 
-    display: flex; /* 🔥 SOLO aquí aparece */
+    display: flex;
   }
 
   .nav-container {
-    padding: 0;
-    padding-right: -40px;
-    margin-left: 30px;
+    padding: 0 14px;
   }
 
-  .nav-logo {
-    margin-left: -50px;
+  .aura-nav-drawer {
+    width: 290px;
   }
 }

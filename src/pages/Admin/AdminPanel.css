@@ -10,6 +10,7 @@
 /* LAYOUT BASE */
 .aura-layout {
   display: flex;
+  width: 100%;
   min-height: 100vh;
   background: var(--aura-bg);
   color: var(--text-main);
@@ -94,9 +95,16 @@
 /* --- MAIN CONTENT --- */
 .aura-main {
   flex: 1;
-  padding: 40px 50px; /* Reducido para dar más ancho a la tabla */
+  padding: 40px 50px;
+  width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container-wrapper {
+  width: 100%;
+  flex: 1;
 }
 
 .aura-content-header {

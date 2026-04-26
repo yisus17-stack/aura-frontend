@@ -36,7 +36,7 @@
 /* --- GRID (4 / 3 / 2 / 1) --- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 3vw, 26px);
 }
 

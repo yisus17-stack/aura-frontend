@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LogOut, ShieldCheck, PanelRight, X, LayoutDashboard, UserCircle } from 'lucide-react';
+import { Home, LogOut, ShieldCheck, PanelRight, X, LayoutDashboard, UserCircle } from 'lucide-react';
 import { logoutUser } from '../../services/authService';
 import './Navbar.css';
 import logo from '../../assets/Aura.svg';
@@ -73,7 +73,7 @@ const Navbar = ({ user, setUser }) => {
         </div>
         <nav className="drawer-menu">
           <p className="menu-label">Navegación</p>
-          <Link to="/" onClick={() => setIsMenuOpen(false)} className="drawer-item"><span>Inicio</span></Link>
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className="drawer-item"><Home size={20} /><span>Inicio</span></Link>
           {user ? (
             <>
               <Link to="/dashboard" className="drawer-item"><LayoutDashboard size={20} /><span>Dashboard</span></Link>

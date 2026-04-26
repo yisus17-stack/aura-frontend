@@ -12,15 +12,23 @@ const Breadcrumbs = ({ nombre }) => {
 
         <span className="breadcrumb-separator">›</span>
 
-        <Link to="/" className="breadcrumb-link">
-          Personajes
-        </Link>
+        {nombre === "Personajes" ? (
+          <span className="breadcrumb-current-pill">
+            Personajes
+          </span>
+        ) : (
+          <>
+            <Link to="/dashboard" className="breadcrumb-link">
+              Personajes
+            </Link>
 
-        <span className="breadcrumb-separator">›</span>
+            <span className="breadcrumb-separator">›</span>
 
-        <span className="breadcrumb-current-pill">
-          {nombre || "Cargando..."}
-        </span>
+            <span className="breadcrumb-current-pill">
+              {nombre || "Cargando..."}
+            </span>
+          </>
+        )}
 
       </div>
     </div>

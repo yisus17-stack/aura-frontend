@@ -1,80 +1,283 @@
+.sitemap-wrapper {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 4rem 1.5rem;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 .sitemap-container {
-  padding: 4rem 2rem;
-  max-width: 800px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  color: #333;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 .sitemap-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .sitemap-header h1 {
   font-size: 2.5rem;
-  color: #8b79a5;
+  font-weight: 700;
+  color: #2c2c2c;
   margin-bottom: 0.5rem;
 }
 
 .sitemap-header p {
-  color: #666;
   font-size: 1.1rem;
+  color: #777;
 }
 
-.sitemap-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+/* GENERAL TREE NODE STYLES */
+.sitemap-tree-container {
+  margin-top: 2rem;
 }
 
-.sitemap-section {
-  background: #fcfcfd;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  border: 1px solid #eee;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.sitemap-section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(139, 121, 165, 0.1);
-}
-
-.sitemap-section h2 {
-  font-size: 1.25rem;
-  color: #555;
-  border-bottom: 2px solid #8b79a5;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.sitemap-section ul {
-  list-style: none;
+.tree, .tree ul, .tree li {
   padding: 0;
   margin: 0;
+  list-style-type: none !important;
 }
 
-.sitemap-section li {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  color: #666;
-}
-
-.sitemap-section a {
-  color: #8b79a5;
-  font-weight: 600;
+.tree-node {
+  border: 1px solid #dcdcdc;
+  padding: 8px 16px;
   text-decoration: none;
-  transition: color 0.2s;
+  color: #333;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  position: relative;
+  z-index: 2;
+  white-space: nowrap;
 }
 
-.sitemap-section a:hover {
-  color: #6c5d82;
-  text-decoration: underline;
+.tree-node a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.tree-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  border-color: #8b79a5;
+}
+
+/* Node Specific Colors */
+.root-node {
+  background-color: #8b79a5;
+  color: white;
+  border-color: #72628a;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 30px;
+}
+.root-node:hover {
+  background-color: #72628a;
+}
+
+.branch-node {
+  font-weight: 600;
+  cursor: default;
+  background-color: #ffffff;
+}
+.branch-node:hover {
+  transform: none; /* Disable hover movement for pure branches */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.branch-node.public .node-icon { color: #777; }
+.branch-node.private .node-icon { color: #777; }
+.branch-node.admin .node-icon { color: #777; }
+.branch-node.info .node-icon { color: #777; }
+
+.leaf-node {
+  background-color: #fafafa;
+  color: #555;
+  border: 1px solid #eaeaea;
+}
+
+.leaf-node:hover {
+  background-color: white;
+  color: #8b79a5;
+  border-color: #8b79a5;
+}
+
+.node-icon, .leaf-icon {
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+/* DESKTOP VIEW: HORIZONTAL TREE */
+@media (min-width: 801px) {
+  .sitemap-tree-container {
+    text-align: center;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+  }
+  
+  .tree, .tree ul {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px; 
+    position: relative;
+  }
+  
+  ul.tree {
+    padding-top: 0;
+  }
+
+  .tree li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px 5px 0 5px;
+  }
+  
+  .tree li::before, .tree li::after {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    width: 50%; 
+    height: 20px;
+    border-top: 2px solid #ccc;
+    z-index: 1;
+  }
+  
+  .tree li::before {
+    left: 0;
+  }
+  
+  .tree li::after {
+    right: 0;
+    border-left: 2px solid #ccc;
+  }
+  
+  .tree li:only-child::after, .tree li:only-child::before {
+    display: none;
+  }
+  
+  .tree li:only-child { 
+    padding-top: 0;
+  }
+  
+  .tree li:first-child::before, .tree li:last-child::after {
+    display: none;
+  }
+  
+  .tree li:last-child::before {
+    border-right: 2px solid #ccc;
+    border-radius: 0 5px 0 0;
+  }
+  
+  .tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+  }
+  
+  .tree ul ul::before {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    left: 50%;
+    margin-left: -1px; /* perfectly center the 2px line */
+    border-left: 2px solid #ccc;
+    width: 0; 
+    height: 20px;
+    z-index: 1;
+  }
+}
+
+/* MOBILE VIEW: VERTICAL INDENTED TREE */
+@media (max-width: 800px) {
+  .sitemap-wrapper {
+    padding: 2rem 1rem;
+  }
+  
+  .sitemap-header {
+    margin-bottom: 2rem;
+  }
+  
+  .sitemap-header h1 {
+    font-size: 2rem;
+  }
+
+  .sitemap-tree-container {
+    padding: 0 5px;
+    margin-top: 1rem;
+  }
+  
+  .tree ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Make the root node centered at the top */
+  .tree > li > .tree-node {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+  
+  /* Vertical line from root node to the sub-tree on mobile */
+  .tree > li > ul::before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 15px;
+    background-color: #e0e0e0;
+    margin-left: 20px;
+  }
+  
+  /* Sub-lists get indented with a border on the left */
+  .tree ul ul {
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 2px solid #e0e0e0;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .tree li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Horizontal line connector from the left border to the node */
+  .tree ul ul li::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: -20px;
+    width: 20px;
+    border-top: 2px solid #e0e0e0;
+  }
+  
+  .tree-node {
+    width: 100%;
+    padding: 12px 15px;
+    justify-content: flex-start;
+  }
+  
+  .tree-node a {
+    justify-content: flex-start;
+  }
 }

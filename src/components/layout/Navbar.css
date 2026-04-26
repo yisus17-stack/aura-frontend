@@ -175,6 +175,7 @@
 .drawer-menu {
   flex: 1;
   padding: 20px 14px;
+  overflow-y: auto;
 }
 
 .menu-label {

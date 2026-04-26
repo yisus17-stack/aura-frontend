@@ -1,46 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Home, Globe, Lock, ShieldAlert, FileWarning, LogIn, UserPlus, LayoutDashboard, User, Users, AlertTriangle, Map } from 'lucide-react';
 import './SitemapPage.css';
 
 const SitemapPage = () => {
   return (
-    <div className="sitemap-container">
-      <div className="sitemap-header">
-        <h1>Mapa del Sitio</h1>
-        <p>Explora todas las secciones disponibles en Aura.</p>
-      </div>
+    <div className="sitemap-wrapper">
+      <div className="sitemap-container">
+        <div className="sitemap-header">
+          <h1>Mapa del Sitio</h1>
+          <p>Estructura jerárquica de la plataforma Aura</p>
+        </div>
 
-      <div className="sitemap-content">
-        <section className="sitemap-section">
-          <h2>Públicas</h2>
-          <ul>
-            <li><Link to="/">Inicio</Link> - Descubre el mundo de Aura</li>
-            <li><Link to="/login">Iniciar Sesión</Link> - Accede a tu cuenta</li>
-            <li><Link to="/registro">Registro</Link> - Crea una nueva cuenta</li>
+        <div className="sitemap-tree-container">
+          <ul className="tree">
+            <li>
+              <div className="tree-node root-node">
+                <Link to="/">
+                  <Home size={18} className="node-icon" /> Inicio
+                </Link>
+              </div>
+              <ul>
+                <li>
+                  <div className="tree-node branch-node public">
+                    <Globe size={18} className="node-icon" /> <span>Públicas</span>
+                  </div>
+                  <ul>
+                    <li><div className="tree-node leaf-node"><Link to="/login"><LogIn size={15} className="leaf-icon" /> Iniciar Sesión</Link></div></li>
+                    <li><div className="tree-node leaf-node"><Link to="/registro"><UserPlus size={15} className="leaf-icon" /> Registro</Link></div></li>
+                  </ul>
+                </li>
+                <li>
+                  <div className="tree-node branch-node private">
+                    <Lock size={18} className="node-icon" /> <span>Privadas</span>
+                  </div>
+                  <ul>
+                    <li><div className="tree-node leaf-node"><Link to="/dashboard"><LayoutDashboard size={15} className="leaf-icon" /> Dashboard</Link></div></li>
+                    <li><div className="tree-node leaf-node"><Link to="/personaje/1"><User size={15} className="leaf-icon" /> Detalle Personaje</Link></div></li>
+                  </ul>
+                </li>
+                <li>
+                  <div className="tree-node branch-node admin">
+                    <ShieldAlert size={18} className="node-icon" /> <span>Administración</span>
+                  </div>
+                  <ul>
+                    <li><div className="tree-node leaf-node"><Link to="/usuarios"><Users size={15} className="leaf-icon" /> Gestión Usuarios</Link></div></li>
+                  </ul>
+                </li>
+                <li>
+                  <div className="tree-node branch-node info">
+                    <FileWarning size={18} className="node-icon" /> <span>Información</span>
+                  </div>
+                  <ul>
+                    <li><div className="tree-node leaf-node"><Link to="/404"><AlertTriangle size={15} className="leaf-icon" /> Página 404</Link></div></li>
+                    <li><div className="tree-node leaf-node"><Link to="/mapa-del-sitio"><Map size={15} className="leaf-icon" /> Mapa del Sitio</Link></div></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
-        </section>
-
-        <section className="sitemap-section">
-          <h2>Privadas (Requieren Autenticación)</h2>
-          <ul>
-            <li><Link to="/dashboard">Dashboard</Link> - Panel de control principal</li>
-            <li><Link to="/personaje/1">Detalle de Personaje</Link> - Ejemplo de vista protegida</li>
-          </ul>
-        </section>
-
-        <section className="sitemap-section">
-          <h2>Administración</h2>
-          <ul>
-            <li><Link to="/usuarios">Gestión de Usuarios</Link> - Solo administradores</li>
-          </ul>
-        </section>
-        
-        <section className="sitemap-section">
-          <h2>Información Legal</h2>
-          <ul>
-            <li><Link to="/404">Página 404</Link> - Ejemplo de ruta no encontrada</li>
-          </ul>
-        </section>
+        </div>
       </div>
     </div>
   );

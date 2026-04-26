@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Trash2, Popcorn } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
 import { auraSwal as Swal } from '../../utils/swalConfig';
 
 import API from '../../api/axios'; 

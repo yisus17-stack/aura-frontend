@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Usuarios.css';
+import './AdminPanel.css';
 import API from '../../api/axios';
 import { auraSwal as Swal } from '../../utils/swalConfig';
 
@@ -13,7 +13,7 @@ import LogsTable from '../../components/admin/LogsTable';
 import PersonajesTable from '../../components/admin/PersonajesTable';
 import Spinner from '../../components/ui/Spinner';
 
-const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
+const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
   const [activeTab, setActiveTab] = useState(() => {
     const saved = localStorage.getItem('adminActiveTab');
     return ['usuarios', 'logs', 'personajes'].includes(saved) ? saved : 'usuarios';
@@ -226,4 +226,4 @@ const Usuarios = ({ setUser }) => { // 👈 Recibimos setUser como prop
   );
 };
 
-export default Usuarios;
+export default AdminPanel;

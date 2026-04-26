@@ -44,7 +44,7 @@ const SitemapPage = () => {
                     <ShieldAlert size={18} className="node-icon" /> <span>Administración</span>
                   </div>
                   <ul>
-                    <li><div className="tree-node leaf-node"><Link to="/usuarios"><Users size={15} className="leaf-icon" /> Gestión Usuarios</Link></div></li>
+                    <li><div className="tree-node leaf-node"><Link to="/admin"><Users size={15} className="leaf-icon" /> Panel de Administración</Link></div></li>
                   </ul>
                 </li>
                 <li>

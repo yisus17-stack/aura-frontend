@@ -10,7 +10,7 @@ const Footer = () => {
   const path = location.pathname === '/' ? 'Inicio' : 
                location.pathname.includes('dashboard') ? 'Dashboard' :
                location.pathname.includes('personaje') ? 'Detalle de Personaje' :
-               location.pathname.includes('usuarios') ? 'Gestión' : 'Aura';
+               location.pathname.includes('admin') ? 'Panel Admin' : 'Aura';
 
   return (
     <footer className="mini-footer-aura">

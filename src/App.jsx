@@ -12,7 +12,7 @@ import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import CharacterDetail from './pages/Character/CharacterDetail';
-import Usuarios from './pages/Admin/Usuarios';
+import AdminPanel from './pages/Admin/AdminPanel';
 import NotFound from './pages/NotFound/NotFound';
 import SitemapPage from './pages/Sitemap/SitemapPage';
 
@@ -23,7 +23,7 @@ const AppContent = ({ user, setUser }) => {
   const location = useLocation();
 
   const isAuthPage = location.pathname === '/login' || location.pathname === '/registro';
-  const isAdminPage = location.pathname === '/usuarios';
+  const isAdminPage = location.pathname === '/admin';
 
 
 
@@ -87,10 +87,10 @@ const AppContent = ({ user, setUser }) => {
 
           {/* 🔥 PANEL ADMIN: Redirige a HOME si no es admin */}
           <Route
-            path="/usuarios"
+            path="/admin"
             element={
               user?.rol?.toLowerCase() === 'admin'
-                ? <Usuarios setUser={setUser} /> // Pasamos setUser para el Sidebar de Admin
+                ? <AdminPanel setUser={setUser} /> // Pasamos setUser para el Sidebar de Admin
                 : <Navigate to="/" replace />
             }
           />

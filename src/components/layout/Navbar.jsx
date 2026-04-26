@@ -46,9 +46,9 @@ const Navbar = ({ user, setUser }) => {
                     <span>Dashboard</span>
                   </Link>
                   {user.rol?.toLowerCase() === 'admin' && (
-                    <Link to="/usuarios" className="nav-link-admin">
+                    <Link to="/admin" className="nav-link-admin">
                       <ShieldCheck size={18} />
-                      <span>Panel</span>
+                      <span>Panel Admin</span>
                     </Link>
                   )}
                 </>
@@ -85,7 +85,7 @@ const Navbar = ({ user, setUser }) => {
             <>
               <Link to="/dashboard" className="drawer-item"><LayoutDashboard size={20} /><span>Dashboard</span></Link>
               {user.rol?.toLowerCase() === 'admin' && (
-                <Link to="/usuarios" className="drawer-item admin-highlight"><ShieldCheck size={20} /><span>Panel Admin</span></Link>
+                <Link to="/admin" className="drawer-item admin-highlight"><ShieldCheck size={20} /><span>Panel Admin</span></Link>
               )}
             </>
           ) : (

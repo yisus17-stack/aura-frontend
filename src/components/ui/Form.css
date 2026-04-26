@@ -217,7 +217,6 @@
   .custom-form-card {
     flex: 0 0 auto;
     justify-content: flex-start;
-    min-height: auto;
     width: 100%;
     padding: 28px 18px 28px;
     margin-top: -22px;
@@ -258,7 +257,6 @@
 @media (max-width: 640px) {
   .custom-form-card {
     justify-content: flex-start;
-    min-height: auto;
     padding: 28px 18px 28px;
   }
 
@@ -310,7 +308,6 @@
   }
 
   .custom-form-card {
-    min-height: auto;
     padding: 24px 16px 24px;
   }
 

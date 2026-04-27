@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auraSwal as Swal } from '../../utils/swalConfig';
-import { getRegisterError } from '../../utils/validations';
+import {
+  getEmailValidationError,
+  validateName,
+  validatePassword
+} from '../../utils/validations';
 import Form from '../../components/ui/Form';
 import Input from '../../components/ui/Input';
 import './RegisterPage.css';
 
 const RegisterPage = ({ setUser }) => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    password: ''
-  });
-  const [errors, setErrors] = useState({}); // 👈 Nuevo estado para errores locales
+  const [formData, setFormData] = useState({ nombre: '', email: '', password: '' });
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
+  // --- Validación completa usando validations.js ---
   const validate = () => {
     const newErrors = {};
+
     if (!formData.nombre.trim()) {
-      newErrors.nombre = 'El nombre es obligatorio';
-    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u.test(formData.nombre)) {
-      newErrors.nombre = 'El nombre solo debe contener letras';
+      newErrors.nombre = 'El nombre es obligatorio.';
+    } else if (formData.nombre.trim().length < 3) {
+      newErrors.nombre = 'El nombre debe tener al menos 3 caracteres.';
+    } else if (!validateName(formData.nombre)) {
+      newErrors.nombre = 'El nombre solo puede contener letras y espacios.';
     }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'El email es obligatorio';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Formato de email inválido';
-    }
+
+    const emailError = getEmailValidationError(formData.email);
+    if (emailError) newErrors.email = emailError;
+
     if (!formData.password) {
-      newErrors.password = 'La contraseña es obligatoria';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Mínimo 6 caracteres';
+      newErrors.password = 'La contraseña es obligatoria.';
+    } else if (!validatePassword(formData.password)) {
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres.';
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!validate()) return; // 👈 Validación antes de enviar
+    if (!validate()) return;
 
     setLoading(true);
     Swal.fire({
@@ -67,8 +70,8 @@ const RegisterPage = ({ setUser }) => {
       }
 
       setLoading(false);
-      
-      // --- 🚀 AUTO-LOGIN TRAS REGISTRO ---
+
+      // Auto-login tras registro exitoso
       localStorage.setItem('user', JSON.stringify(data));
       if (setUser) setUser(data);
 
@@ -78,16 +81,11 @@ const RegisterPage = ({ setUser }) => {
         icon: 'success',
         timer: 2000,
         showConfirmButton: false
-      }).then(() => {
-        navigate('/dashboard');
-      });
+      }).then(() => navigate('/dashboard'));
+
     } catch (error) {
       setLoading(false);
-      Swal.fire({
-        title: 'Aviso',
-        text: error.message,
-        icon: 'warning'
-      });
+      Swal.fire({ title: 'Aviso', text: error.message, icon: 'warning' });
     }
   };
 
@@ -110,11 +108,9 @@ const RegisterPage = ({ setUser }) => {
             const val = e.target.value;
             setFormData({ ...formData, nombre: val });
             let err = '';
-            if (!val.trim()) {
-              err = 'El nombre es obligatorio';
-            } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u.test(val)) {
-              err = 'El nombre solo debe contener letras';
-            }
+            if (!val.trim()) err = 'El nombre es obligatorio.';
+            else if (val.trim().length < 3) err = 'Mínimo 3 caracteres.';
+            else if (!validateName(val)) err = 'Solo letras y espacios.';
             setErrors(prev => ({ ...prev, nombre: err }));
           }}
           disabled={loading}
@@ -128,10 +124,9 @@ const RegisterPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setFormData({ ...formData, email: val });
-            let err = '';
-            if (!val.trim()) err = 'El email es obligatorio';
-            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err = 'Formato inválido';
-            setErrors(prev => ({ ...prev, email: err }));
+            // Usar validaciones completas del utils
+            const emailErr = val ? getEmailValidationError(val) : 'El email es obligatorio.';
+            setErrors(prev => ({ ...prev, email: emailErr }));
           }}
           disabled={loading}
           error={errors.email}
@@ -145,8 +140,8 @@ const RegisterPage = ({ setUser }) => {
             const val = e.target.value;
             setFormData({ ...formData, password: val });
             let err = '';
-            if (!val) err = 'La contraseña es obligatoria';
-            else if (val.length < 6) err = 'Mínimo 6 caracteres';
+            if (!val) err = 'La contraseña es obligatoria.';
+            else if (!validatePassword(val)) err = 'Mínimo 6 caracteres.';
             setErrors(prev => ({ ...prev, password: err }));
           }}
           disabled={loading}

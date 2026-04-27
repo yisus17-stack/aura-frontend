@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auraSwal as Swal } from '../../utils/swalConfig';
-import { getLoginError } from '../../utils/validations';
+import { getEmailValidationError } from '../../utils/validations';
 import './LoginPage.css';
 import Input from '../../components/ui/Input';
 import Form from '../../components/ui/Form';
@@ -110,10 +110,8 @@ const LoginPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setEmail(val);
-            let err = '';
-            if (!val.trim()) err = 'El email es obligatorio';
-            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err = 'Email inválido';
-            setErrors(prev => ({ ...prev, email: err }));
+            const emailErr = val ? getEmailValidationError(val) : 'El email es obligatorio';
+            setErrors(prev => ({ ...prev, email: emailErr }));
           }}
           disabled={loading}
           placeholder="ana.lopez@gmail.com"

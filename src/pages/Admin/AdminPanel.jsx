@@ -166,7 +166,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
       <AdminSidebar
         activeTab={activeTab}
         setActiveTab={handleTabChange}
-        setUser={setUser} 
+        setUser={setUser}
       />
 
       <main className="aura-main">
@@ -179,10 +179,11 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
             </h1>
             <p>Administra los datos de la plataforma Aura</p>
           </div>
-          
+
           <div style={{ display: 'flex', gap: '10px' }}>
-            {activeTab === 'logs' && data.logs.length > 0 && JSON.parse(localStorage.getItem('user'))?.email === 'esquivelyisus17@gmail.com' && (
-              <button 
+            {/*mostrar logs a cualquier admin */}
+            {activeTab === 'logs' && data.logs.length > 0 && JSON.parse(localStorage.getItem('user'))?.rol === 'admin' && (
+              <button
                 className="btn-reload"
                 style={{ color: '#ef4444', borderColor: '#fee2e2' }}
                 onClick={() => {
@@ -213,7 +214,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
               </button>
             )}
 
-            <button 
+            <button
               className={`btn-reload ${loading ? 'spinning' : ''}`}
               onClick={() => fetchDataForTab(activeTab)}
               disabled={loading}
@@ -235,9 +236,9 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
           ) : (
             <>
               {activeTab === 'usuarios' && (
-                <UserTable 
-                  data={data.usuarios} 
-                  onDelete={eliminarUsuario} 
+                <UserTable
+                  data={data.usuarios}
+                  onDelete={eliminarUsuario}
                   onUpdateRol={handleUpdateRol}
                   currentUser={JSON.parse(localStorage.getItem('user'))}
                 />

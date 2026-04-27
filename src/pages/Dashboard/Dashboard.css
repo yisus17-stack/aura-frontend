@@ -270,7 +270,7 @@
   display: flex;
   gap: 12px;
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   width: 100%;
   overflow-x: auto;
   padding: 5px 5px 20px 5px;
@@ -305,6 +305,51 @@
 .brand-filter-btn.active {
   border-color: var(--brand-color);
   background: var(--brand-color);
+}
+
+/* --- CONTADOR DE RESULTADOS (SQUARE STYLE) --- */
+.results-counter-aura {
+  display: flex;
+  margin-bottom: 25px;
+  padding: 0 5px;
+}
+
+.counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.counter-badge:hover {
+  background: white;
+  border-color: var(--aura-purple-soft);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.badge-icon {
+  color: var(--aura-purple);
+  opacity: 0.8;
+}
+
+.badge-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.badge-text strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+@keyframes auraFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .brand-filter-logo {

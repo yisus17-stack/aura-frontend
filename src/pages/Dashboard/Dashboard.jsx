@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Trash2, ChevronRight } from 'lucide-react';
+import { Search, Trash2, ChevronRight, LayoutGrid } from 'lucide-react';
 import { auraSwal as Swal } from '../../utils/swalConfig';
 
 import API from '../../api/axios'; 
@@ -161,6 +161,15 @@ const Dashboard = ({ user }) => {
         </div>
       )}
 
+      {/* 🔢 CONTADOR DE PERSONAJES - SOLO TEXTO */}
+      <div className="results-counter-aura">
+        <div className="counter-badge">
+          <span className="badge-text">
+            <strong>{personajesFiltrados.length}</strong> {personajesFiltrados.length === 1 ? 'personaje encontrado' : 'personajes encontrados'}
+          </span>
+        </div>
+      </div>
+
       {/* CONTENIDO */}
       <section className="dashboard-content">
         {loading ? (
@@ -203,11 +212,6 @@ const Dashboard = ({ user }) => {
                       )}
                     </div>
                     
-                    <div className="card-hover-hint">
-                      <span>Ver detalles</span>
-                      <ChevronRight size={14} />
-                    </div>
-
                   </div>
                 </Link>
               ))}

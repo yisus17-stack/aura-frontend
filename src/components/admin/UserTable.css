@@ -18,7 +18,7 @@
 /* Badge de Rol Estilo Aura */
 .badge-aura-role {
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -36,6 +36,37 @@
   background: #f8f9fb;
   color: #64748b;
   border: 1px solid #e8ecf1;
+}
+
+/* Selector de Rol (SuperAdmin) */
+.badge-aura-role-select {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.badge-aura-role-select.admin {
+  background: #f0ebf8;
+  color: #9b89b5;
+  border: 1px solid rgba(155, 137, 181, 0.2);
+}
+
+.badge-aura-role-select.user {
+  background: #f8f9fb;
+  color: #64748b;
+  border: 1px solid #e8ecf1;
+}
+
+.badge-aura-role-select:hover {
+  filter: brightness(0.95);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 /* Footer de Tabla */

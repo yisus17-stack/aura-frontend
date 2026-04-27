@@ -135,6 +135,20 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
     }
   };
 
+  const handleUpdateRol = async (id, nuevoRol) => {
+    try {
+      await API.put(`/usuarios/${id}/rol`, { rol: nuevoRol });
+      setData(prev => ({
+        ...prev,
+        usuarios: prev.usuarios.map(u => u.id === id ? { ...u, rol: nuevoRol } : u)
+      }));
+      Swal.fire('Actualizado', `Rol cambiado a ${nuevoRol}`, 'success');
+    } catch (error) {
+      const msg = error.response?.data?.error || 'No se pudo actualizar el rol';
+      Swal.fire('Error', msg, 'error');
+    }
+  };
+
   return (
     <div className="aura-layout">
       {/* 🚀 Pasamos setUser al Sidebar para que también pueda cerrar sesión */}
@@ -210,7 +224,12 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
           ) : (
             <>
               {activeTab === 'usuarios' && (
-                <UserTable data={data.usuarios} onDelete={eliminarUsuario} />
+                <UserTable 
+                  data={data.usuarios} 
+                  onDelete={eliminarUsuario} 
+                  onUpdateRol={handleUpdateRol}
+                  currentUser={JSON.parse(localStorage.getItem('user'))}
+                />
               )}
               {activeTab === 'logs' && <LogsTable data={data.logs} />}
               {activeTab === 'personajes' && (

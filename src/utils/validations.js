@@ -85,7 +85,15 @@ export const getEmailValidationError = (email) => {
 
 export const validateEmail = (email) => !getEmailValidationError(email);
 
-export const validatePassword = (password) => password.length >= 6;
+export const getPasswordError = (password) => {
+  if (!password) return 'La contraseña es obligatoria.';
+  if (password.length < 6) return 'Mínimo 6 caracteres.';
+  if (!/[a-zA-Z]/.test(password)) return 'Debe contener al menos una letra.';
+  if (!/[0-9]/.test(password)) return 'Debe contener al menos un número.';
+  return null; // todo OK
+};
+
+export const validatePassword = (password) => !getPasswordError(password);
 
 export const validateName = (name) => {
   const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;

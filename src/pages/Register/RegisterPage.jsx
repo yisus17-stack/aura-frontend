@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auraSwal as Swal } from '../../utils/swalConfig';
 import {
   getEmailValidationError,
-  validateName,
-  validatePassword
+  getPasswordError,
+  validateName
 } from '../../utils/validations';
 import Form from '../../components/ui/Form';
 import Input from '../../components/ui/Input';
@@ -33,11 +33,8 @@ const RegisterPage = ({ setUser }) => {
     const emailError = getEmailValidationError(formData.email);
     if (emailError) newErrors.email = emailError;
 
-    if (!formData.password) {
-      newErrors.password = 'La contraseña es obligatoria.';
-    } else if (!validatePassword(formData.password)) {
-      newErrors.password = 'Mínimo 6 caracteres.';
-    }
+    const pwdErr = getPasswordError(formData.password);
+    if (pwdErr) newErrors.password = pwdErr;
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -139,10 +136,8 @@ const RegisterPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setFormData({ ...formData, password: val });
-            let err = '';
-            if (!val) err = 'La contraseña es obligatoria.';
-            else if (!validatePassword(val)) err = 'Mínimo 6 caracteres.';
-            setErrors(prev => ({ ...prev, password: err }));
+            const pwdErr = getPasswordError(val);
+            setErrors(prev => ({ ...prev, password: pwdErr || '' }));
           }}
           disabled={loading}
           error={errors.password}

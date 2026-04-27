@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auraSwal as Swal } from '../../utils/swalConfig';
-import { getEmailValidationError, validatePassword } from '../../utils/validations';
+import { getEmailValidationError, getPasswordError } from '../../utils/validations';
 import './LoginPage.css';
 import Input from '../../components/ui/Input';
 import Form from '../../components/ui/Form';
@@ -124,10 +124,8 @@ const LoginPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setPassword(val);
-            let err = '';
-            if (!val) err = 'La contraseña es obligatoria.';
-            else if (!validatePassword(val)) err = 'Mínimo 6 caracteres.';
-            setErrors(prev => ({ ...prev, password: err }));
+            const pwdErr = getPasswordError(val);
+            setErrors(prev => ({ ...prev, password: pwdErr || '' }));
           }}
           disabled={loading}
           placeholder="Tu contraseña"

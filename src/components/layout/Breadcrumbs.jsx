@@ -1,11 +1,28 @@
+import { Link } from 'react-router-dom';
 import './Breadcrumbs.css';
 
 const Breadcrumbs = ({ nombre }) => {
+  // Si estamos en el Dashboard, solo mostramos "Personajes" sin nada más
+  if (nombre === "Personajes") {
+    return (
+      <div className="breadcrumb-wrapper">
+        <div className="breadcrumb-capsule">
+          <span className="breadcrumb-current-pill">Personajes</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Para el resto de páginas (Detalle, etc.), mantenemos el camino completo "perfecto"
   return (
     <div className="breadcrumb-wrapper">
       <div className="breadcrumb-capsule">
+        <Link to="/" className="breadcrumb-link">Inicio</Link>
+        <span className="breadcrumb-separator">›</span>
+        <Link to="/dashboard" className="breadcrumb-link">Personajes</Link>
+        <span className="breadcrumb-separator">›</span>
         <span className="breadcrumb-current-pill">
-          Personajes
+          {nombre || "Cargando..."}
         </span>
       </div>
     </div>

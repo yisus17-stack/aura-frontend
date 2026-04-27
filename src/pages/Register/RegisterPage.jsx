@@ -102,8 +102,10 @@ const RegisterPage = ({ setUser }) => {
           placeholder="Ej. Ana López"
           value={formData.nombre}
           onChange={(e) => {
-            setFormData({ ...formData, nombre: e.target.value });
-            if (errors.nombre) setErrors({ ...errors, nombre: '' });
+            const val = e.target.value;
+            setFormData({ ...formData, nombre: val });
+            let err = val.trim() ? '' : 'El nombre es obligatorio';
+            setErrors(prev => ({ ...prev, nombre: err }));
           }}
           disabled={loading}
           error={errors.nombre}
@@ -114,8 +116,12 @@ const RegisterPage = ({ setUser }) => {
           placeholder="ana.lopez@gmail.com"
           value={formData.email}
           onChange={(e) => {
-            setFormData({ ...formData, email: e.target.value });
-            if (errors.email) setErrors({ ...errors, email: '' });
+            const val = e.target.value;
+            setFormData({ ...formData, email: val });
+            let err = '';
+            if (!val.trim()) err = 'El email es obligatorio';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err = 'Formato inválido';
+            setErrors(prev => ({ ...prev, email: err }));
           }}
           disabled={loading}
           error={errors.email}
@@ -126,8 +132,12 @@ const RegisterPage = ({ setUser }) => {
           placeholder="Mínimo 6 caracteres"
           value={formData.password}
           onChange={(e) => {
-            setFormData({ ...formData, password: e.target.value });
-            if (errors.password) setErrors({ ...errors, password: '' });
+            const val = e.target.value;
+            setFormData({ ...formData, password: val });
+            let err = '';
+            if (!val) err = 'La contraseña es obligatoria';
+            else if (val.length < 6) err = 'Mínimo 6 caracteres';
+            setErrors(prev => ({ ...prev, password: err }));
           }}
           disabled={loading}
           error={errors.password}

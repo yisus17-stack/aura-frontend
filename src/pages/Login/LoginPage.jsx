@@ -108,8 +108,12 @@ const LoginPage = ({ setUser }) => {
           type="email"
           value={email}
           onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) setErrors({ ...errors, email: '' });
+            const val = e.target.value;
+            setEmail(val);
+            let err = '';
+            if (!val.trim()) err = 'El email es obligatorio';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err = 'Email inválido';
+            setErrors(prev => ({ ...prev, email: err }));
           }}
           disabled={loading}
           placeholder="ana.lopez@gmail.com"
@@ -120,8 +124,11 @@ const LoginPage = ({ setUser }) => {
           type="password"
           value={password}
           onChange={(e) => {
-            setPassword(e.target.value);
-            if (errors.password) setErrors({ ...errors, password: '' });
+            const val = e.target.value;
+            setPassword(val);
+            let err = '';
+            if (!val) err = 'La contraseña es obligatoria';
+            setErrors(prev => ({ ...prev, password: err }));
           }}
           disabled={loading}
           placeholder="Tu contraseña"

@@ -90,7 +90,7 @@ export const getPasswordError = (password) => {
   if (password.length < 6) return 'Mínimo 6 caracteres.';
   if (!/[a-zA-Z]/.test(password)) return 'Debe contener al menos una letra.';
   if (!/[0-9]/.test(password)) return 'Debe contener al menos un número.';
-  return null; // todo OK
+  return null;
 };
 
 export const validatePassword = (password) => !getPasswordError(password);

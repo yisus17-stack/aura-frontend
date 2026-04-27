@@ -216,9 +216,11 @@
 
   .custom-form-card {
     flex: 0 0 auto;
+    min-height: 0;
+    height: auto;
     justify-content: flex-start;
     width: 100%;
-    padding: 28px 18px 28px;
+    padding: 28px 18px 32px;
     margin-top: -22px;
     border-radius: 24px;
     box-shadow: 0 -10px 24px rgba(17, 24, 39, 0.06);
@@ -242,15 +244,15 @@
 
   .form-fixed-height {
     min-height: 0;
-    height: 460px;
+    height: auto;
   }
 
   .form-fixed-height.is-login {
-    height: 360px;
+    height: auto;
   }
 
   .form-fixed-height.is-register {
-    height: 460px;
+    height: auto;
   }
 }
 
@@ -280,15 +282,15 @@
 
   .form-fixed-height {
     min-height: 0;
-    height: 430px;
+    height: auto;
   }
 
   .form-fixed-height.is-login {
-    height: 350px;
+    height: auto;
   }
 
   .form-fixed-height.is-register {
-    height: 430px;
+    height: auto;
   }
 
   .btn-aura {
@@ -339,14 +341,14 @@
   }
 
   .form-fixed-height {
-    height: 410px;
+    height: auto;
   }
 
   .form-fixed-height.is-login {
-    height: 340px;
+    height: auto;
   }
 
   .form-fixed-height.is-register {
-    height: 410px;
+    height: auto;
   }
 }

@@ -108,7 +108,7 @@ const Dashboard = ({ user }) => {
 
       {/* HERO */}
       <section className="dashboard-hero">
-        {/* Imagen Decorativa (Palomitas PNG) */}
+        {/* Imagen Decorativa (Palomitas PNG) - Solo Desktop */}
         <img 
           src={palomitasImg} 
           alt="Palomitas Decorativas" 

@@ -16,8 +16,14 @@ import AdminPanel from './pages/Admin/AdminPanel';
 import NotFound from './pages/NotFound/NotFound';
 import SitemapPage from './pages/Sitemap/SitemapPage';
 
-// Importamos el servicio centralizado (asegúrate de que la ruta sea correcta)
-
+// Componente para forzar el scroll arriba al cambiar de página
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const AppContent = ({ user, setUser }) => {
   const location = useLocation();
@@ -29,7 +35,7 @@ const AppContent = ({ user, setUser }) => {
 
   return (
     <div className="app-container">
-
+      <ScrollToTop />
       {/* NAVBAR: Se oculta en login/registro y en el panel de usuarios admin */}
       {!isAuthPage && !isAdminPage && (
   <>

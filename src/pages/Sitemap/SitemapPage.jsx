@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Home, Globe, Lock, ShieldAlert, FileWarning, LogIn, UserPlus, LayoutDashboard, User, Users, AlertTriangle, Map } from 'lucide-react';
 import './SitemapPage.css';
 
 const SitemapPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="sitemap-wrapper">
       <div className="sitemap-container">

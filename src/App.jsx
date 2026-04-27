@@ -186,8 +186,9 @@ function App() {
       }
     };
 
-    // Verificamos cada 15 segundos para no saturar pero ser responsivos
-    const interval = setInterval(syncSession, 15000);
+    // Verificamos cada 5 segundos para que los cambios de rol sean casi instantáneos
+    const interval = setInterval(syncSession, 5000);
+
     
     // También verificamos al recuperar el foco de la ventana
     window.addEventListener('focus', syncSession);

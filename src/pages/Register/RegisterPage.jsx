@@ -74,7 +74,7 @@ const RegisterPage = ({ setUser }) => {
 
       Swal.fire({
         title: '¡Cuenta creada!',
-        text: `Bienvenido a Aura, ${nombre.split(' ')[0]}. Hemos iniciado tu sesión automáticamente.`,
+        text: `Bienvenido a Aura, ${formData.nombre.split(' ')[0]}. Hemos iniciado tu sesión automáticamente.`,
         icon: 'success',
         timer: 2000,
         showConfirmButton: false

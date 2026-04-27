@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import './App.css';
+import { supabase } from './supabase'; // 🚀 Importamos Supabase
+
 // Versión restaurada - Limpieza de Supabase Auth
 
 
@@ -186,15 +188,33 @@ function App() {
       }
     };
 
-    // Verificamos cada 5 segundos para que los cambios de rol sean casi instantáneos
-    const interval = setInterval(syncSession, 5000);
-
+    // Verificamos cada 15 segundos como respaldo (fallback)
+    const interval = setInterval(syncSession, 15000);
     
+    // ⚡ TIEMPO REAL: Escuchamos cambios en la base de datos al instante
+    const channel = supabase
+      .channel(`user-role-${user.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'usuarios',
+          filter: `id=eq.${user.id}`, // Solo nos interesa nuestro propio usuario
+        },
+        (payload) => {
+          console.log('⚡ Cambio en tiempo real detectado!', payload);
+          syncSession(); // Forzamos sincronización inmediata
+        }
+      )
+      .subscribe();
+
     // También verificamos al recuperar el foco de la ventana
     window.addEventListener('focus', syncSession);
 
     return () => {
       clearInterval(interval);
+      supabase.removeChannel(channel); // 🧹 Limpiamos el canal
       window.removeEventListener('focus', syncSession);
     };
   }, [user]);

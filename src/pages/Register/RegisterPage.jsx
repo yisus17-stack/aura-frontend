@@ -20,7 +20,12 @@ const RegisterPage = ({ setUser }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.nombre.trim()) newErrors.nombre = 'El nombre es obligatorio';
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = 'El nombre es obligatorio';
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.u.test(formData.nombre)) {
+      newErrors.nombre = 'El nombre solo debe contener letras';
+    }
+    
     if (!formData.email.trim()) {
       newErrors.email = 'El email es obligatorio';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -104,7 +109,12 @@ const RegisterPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setFormData({ ...formData, nombre: val });
-            let err = val.trim() ? '' : 'El nombre es obligatorio';
+            let err = '';
+            if (!val.trim()) {
+              err = 'El nombre es obligatorio';
+            } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.u.test(val)) {
+              err = 'El nombre solo debe contener letras';
+            }
             setErrors(prev => ({ ...prev, nombre: err }));
           }}
           disabled={loading}

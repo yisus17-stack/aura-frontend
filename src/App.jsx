@@ -69,7 +69,7 @@ const AppContent = ({ user, setUser }) => {
           />
 
           {/* 📝 REGISTRO */}
-          <Route path="/registro" element={<RegisterPage />} />
+          <Route path="/registro" element={<RegisterPage setUser={setUser} />} />
 
           {/* 🔐 DASHBOARD: Redirige a HOME si no hay sesión */}
           <Route

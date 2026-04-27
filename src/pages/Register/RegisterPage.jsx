@@ -6,7 +6,7 @@ import Form from '../../components/ui/Form';
 import Input from '../../components/ui/Input';
 import './RegisterPage.css';
 
-const RegisterPage = () => {
+const RegisterPage = ({ setUser }) => {
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -56,14 +56,19 @@ const RegisterPage = () => {
       }
 
       setLoading(false);
+      
+      // --- 🚀 AUTO-LOGIN TRAS REGISTRO ---
+      localStorage.setItem('user', JSON.stringify(data));
+      if (setUser) setUser(data);
+
       Swal.fire({
-        title: 'Registro exitoso',
-        text: `Bienvenido, ${nombre.split(' ')[0]}. Tu cuenta ha sido creada de forma segura.`,
+        title: '¡Cuenta creada!',
+        text: `Bienvenido a Aura, ${nombre.split(' ')[0]}. Hemos iniciado tu sesión automáticamente.`,
         icon: 'success',
         timer: 2000,
         showConfirmButton: false
       }).then(() => {
-        navigate('/login');
+        navigate('/dashboard');
       });
     } catch (error) {
       setLoading(false);

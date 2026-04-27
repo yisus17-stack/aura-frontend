@@ -181,8 +181,8 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
           </div>
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            {/*mostrar logs a cualquier admin */}
-            {activeTab === 'logs' && data.logs.length > 0 && JSON.parse(localStorage.getItem('user'))?.email === 'esquivelyisus17@gmail.com' && (
+            {/* mostrar logs a cualquier admin */}
+            {activeTab === 'logs' && data.logs.length > 0 && (
               <button
                 className="btn-reload"
                 style={{ color: '#ef4444', borderColor: '#fee2e2' }}

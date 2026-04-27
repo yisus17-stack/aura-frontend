@@ -150,14 +150,29 @@ function App() {
 
         const freshData = await response.json();
         
-        // Si el rol ha cambiado, actualizamos el estado global
-        if (freshData.rol !== user.rol) {
-          console.log(`🔔 Cambio de rol detectado: ${user.rol} -> ${freshData.rol}`);
+        // --- ACTUALIZACIÓN DE SESIÓN EN CALIENTE ---
+        // Si el rol o nombre han cambiado, o simplemente para refrescar el token
+        if (freshData.rol !== user.rol || freshData.nombre !== user.nombre || freshData.token) {
           
-          const updatedUser = { ...user, rol: freshData.rol, nombre: freshData.nombre };
+          if (freshData.rol !== user.rol) {
+            console.log(`🔔 Cambio de rol detectado: ${user.rol} -> ${freshData.rol}`);
+          }
+
+          const updatedUser = { 
+            ...user, 
+            rol: freshData.rol, 
+            nombre: freshData.nombre,
+            token: freshData.token || user.token 
+          };
+
+          // Actualizamos localStorage inmediatamente para que las futuras peticiones API usen el nuevo token
+          if (freshData.token) {
+            localStorage.setItem('token', freshData.token);
+          }
+          
           setUser(updatedUser);
 
-          // Si era admin y ya no lo es, y está en una ruta de admin, lo sacamos
+          // Si era admin y ya no lo es, lo sacamos de la ruta protegida
           if (user.rol?.toLowerCase() === 'admin' && freshData.rol?.toLowerCase() !== 'admin') {
              if (window.location.pathname.startsWith('/admin')) {
                 window.location.href = '/';

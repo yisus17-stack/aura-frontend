@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/Table';
 import './UserTable.css';
 
-const OWNER_EMAIL = 'esquivelyisus17@gmail.com';
+const OWNER_EMAIL = import.meta.env.VITE_OWNER_EMAIL;
 
 const UserTable = ({ data = [], onDelete, onUpdateRol, currentUser }) => {
   const isSuperAdmin = currentUser?.email === OWNER_EMAIL;

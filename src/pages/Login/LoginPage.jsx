@@ -126,7 +126,7 @@ const LoginPage = ({ setUser }) => {
             setPassword(val);
             let err = '';
             if (!val) err = 'La contraseña es obligatoria.';
-            else if (!validatePassword(val)) err = 'Mínimo 6 caracteres, una letra y un número.';
+            else if (!validatePassword(val)) err = 'Mínimo 6 caracteres.';
             setErrors(prev => ({ ...prev, password: err }));
           }}
           disabled={loading}

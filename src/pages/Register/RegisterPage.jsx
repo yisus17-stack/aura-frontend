@@ -36,7 +36,7 @@ const RegisterPage = ({ setUser }) => {
     if (!formData.password) {
       newErrors.password = 'La contraseña es obligatoria.';
     } else if (!validatePassword(formData.password)) {
-      newErrors.password = 'Mínimo 6 caracteres, una letra y un número.';
+      newErrors.password = 'Mínimo 6 caracteres.';
     }
 
     setErrors(newErrors);

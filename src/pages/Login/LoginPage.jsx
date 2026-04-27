@@ -9,24 +9,23 @@ import Form from '../../components/ui/Form';
 const LoginPage = ({ setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({}); // 👈 Nuevo estado para errores
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
+  const validate = () => {
+    const newErrors = {};
+    if (!email.trim()) newErrors.email = 'El email es obligatorio';
+    if (!password) newErrors.password = 'La contraseña es obligatoria';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const errorMessage = getLoginError(email, password);
-    if (errorMessage) {
-      Swal.fire({
-        title: 'Casi listo',
-        text: errorMessage,
-        icon: 'info',
-        confirmButtonText: 'Corregir'
-      });
-      return;
-    }
+    if (!validate()) return;
 
     setLoading(true);
 
@@ -47,6 +46,7 @@ const LoginPage = ({ setUser }) => {
         },
         body: JSON.stringify({ email, password })
       });
+// ... rest of try block ...
 
       let data;
 
@@ -107,17 +107,25 @@ const LoginPage = ({ setUser }) => {
           label="Correo electrónico"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errors.email) setErrors({ ...errors, email: '' });
+          }}
           disabled={loading}
           placeholder="ana.lopez@gmail.com"
+          error={errors.email}
         />
         <Input
           label="Contraseña"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            if (errors.password) setErrors({ ...errors, password: '' });
+          }}
           disabled={loading}
           placeholder="Tu contraseña"
+          error={errors.password}
         />
       </Form>
     </div>

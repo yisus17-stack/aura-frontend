@@ -104,7 +104,8 @@ const Dashboard = ({ user }) => {
     <div className="dashboard-container">
 
       {/* 🔥 BREADCRUMB */}
-      <Breadcrumbs nombre="Colección" />
+      <Breadcrumbs nombre="Personajes" />
+
 
       {/* HERO */}
       <section className="dashboard-hero">

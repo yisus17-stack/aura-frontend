@@ -22,7 +22,7 @@ const RegisterPage = ({ setUser }) => {
     const newErrors = {};
     if (!formData.nombre.trim()) {
       newErrors.nombre = 'El nombre es obligatorio';
-    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.u.test(formData.nombre)) {
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u.test(formData.nombre)) {
       newErrors.nombre = 'El nombre solo debe contener letras';
     }
     
@@ -112,7 +112,7 @@ const RegisterPage = ({ setUser }) => {
             let err = '';
             if (!val.trim()) {
               err = 'El nombre es obligatorio';
-            } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.u.test(val)) {
+            } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u.test(val)) {
               err = 'El nombre solo debe contener letras';
             }
             setErrors(prev => ({ ...prev, nombre: err }));

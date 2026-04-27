@@ -67,10 +67,8 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
   }, [handleLogout]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchDataForTab(activeTab);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeTab, fetchDataForTab]);
 
   // --- MÉTODOS DE ELIMINACIÓN ---
   const eliminarUsuario = (id) => {
@@ -91,7 +89,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
       await API.delete(`/usuarios/${id}`);
       setData(prev => ({
         ...prev,
-        usuarios: prev.usuarios.filter(u => u._id !== id)
+        usuarios: prev.usuarios.filter(u => u.id !== id)
       }));
       Swal.fire('Eliminado', 'Usuario borrado correctamente', 'success');
     } catch {
@@ -120,7 +118,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
       await API.delete(`/personajes/${id}`);
       setData(prev => ({
         ...prev,
-        personajes: prev.personajes.filter(p => p._id !== id)
+        personajes: prev.personajes.filter(p => p.id !== id)
       }));
       Swal.fire('Eliminado', 'Personaje borrado correctamente', 'success');
     } catch {

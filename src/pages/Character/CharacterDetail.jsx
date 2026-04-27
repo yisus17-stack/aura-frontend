@@ -27,6 +27,11 @@ const CharacterDetail = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Si el personaje ya está cargado (desde state) y coincide con el ID actual, no re-fetch
+    if (personaje && (personaje.id === id || String(personaje.id) === id)) {
+      return;
+    }
+
     const fetchPersonaje = async () => {
       if (!id) {
         setError('No se encontró el identificador del personaje.');
@@ -37,10 +42,8 @@ const CharacterDetail = () => {
       try {
         setLoading(true);
         setError('');
-
         const response = await API.get(`/personajes/${id}`);
         const data = response?.data?.personaje ?? response?.data;
-
         setPersonaje(data ?? null);
       } catch (err) {
         console.error(err);
@@ -50,14 +53,8 @@ const CharacterDetail = () => {
       }
     };
 
-    // Si el personaje ya está cargado y coincide con el ID actual, no re-fetch
-    if (personaje && (personaje.id === id || personaje.id === Number(id))) {
-      setLoading(false);
-      return;
-    }
-
     fetchPersonaje();
-  }, [id, personajeDesdeState]);
+  }, [id, personaje]);
 
   // 🔄 LOADING BONITO
   if (loading) {

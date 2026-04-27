@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import './App.css';
+// Versión restaurada - Limpieza de Supabase Auth
+
 
 // Páginas
 import HomePage from './pages/Home/HomePage';

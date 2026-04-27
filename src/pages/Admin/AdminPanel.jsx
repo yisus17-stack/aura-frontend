@@ -149,6 +149,19 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
     }
   };
 
+  // --- 🔄 SINCRONIZACIÓN AUTOMÁTICA DE TABLAS (Background) ---
+  useEffect(() => {
+    // Solo sincronizamos si hay una sesión activa
+    const interval = setInterval(() => {
+      if (!loading) {
+        // Hacemos el fetch sin activar el spinner de pantalla completa para que sea fluido
+        fetchDataForTab(activeTab);
+      }
+    }, 20000); // Cada 20 segundos refresca la tabla automáticamente
+
+    return () => clearInterval(interval);
+  }, [activeTab, loading]);
+
   return (
     <div className="aura-layout">
       {/* 🚀 Pasamos setUser al Sidebar para que también pueda cerrar sesión */}

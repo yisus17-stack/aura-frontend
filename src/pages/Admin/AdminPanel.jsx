@@ -155,7 +155,7 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
       if (!loading) {
         fetchDataForTab(activeTab);
       }
-    }, 5000); // 🚀 Bajado a 5 segundos para que sea casi instantáneo
+    }, 15000); // 🚀 Bajado a 5 segundos para que sea casi instantáneo
 
     return () => clearInterval(interval);
   }, [activeTab, loading]);

@@ -133,6 +133,54 @@ function App() {
     }
   }, [user]);
 
+  // --- 🔄 SINCRONIZACIÓN DE SESIÓN EN TIEMPO REAL ---
+  useEffect(() => {
+    if (!user) return;
+
+    const syncSession = async () => {
+      try {
+        const response = await fetch(`${(import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '')}/api/auth/profile`, {
+          headers: { 'Authorization': `Bearer ${user.token}` }
+        });
+
+        if (response.status === 401 || response.status === 404) {
+          setUser(null);
+          return;
+        }
+
+        const freshData = await response.json();
+        
+        // Si el rol ha cambiado, actualizamos el estado global
+        if (freshData.rol !== user.rol) {
+          console.log(`🔔 Cambio de rol detectado: ${user.rol} -> ${freshData.rol}`);
+          
+          const updatedUser = { ...user, rol: freshData.rol, nombre: freshData.nombre };
+          setUser(updatedUser);
+
+          // Si era admin y ya no lo es, y está en una ruta de admin, lo sacamos
+          if (user.rol?.toLowerCase() === 'admin' && freshData.rol?.toLowerCase() !== 'admin') {
+             if (window.location.pathname.startsWith('/admin')) {
+                window.location.href = '/';
+             }
+          }
+        }
+      } catch (error) {
+        console.error("Error sincronizando sesión:", error);
+      }
+    };
+
+    // Verificamos cada 15 segundos para no saturar pero ser responsivos
+    const interval = setInterval(syncSession, 15000);
+    
+    // También verificamos al recuperar el foco de la ventana
+    window.addEventListener('focus', syncSession);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', syncSession);
+    };
+  }, [user]);
+
   return (
     <BrowserRouter>
       <AppContent user={user} setUser={setUser} />

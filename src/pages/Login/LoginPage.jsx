@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auraSwal as Swal } from '../../utils/swalConfig';
-import { getEmailValidationError, getPasswordError } from '../../utils/validations';
+import { getEmailValidationError } from '../../utils/validations';
 import './LoginPage.css';
 import Input from '../../components/ui/Input';
 import Form from '../../components/ui/Form';
@@ -124,7 +124,7 @@ const LoginPage = ({ setUser }) => {
           onChange={(e) => {
             const val = e.target.value;
             setPassword(val);
-            const pwdErr = getPasswordError(val);
+            const pwdErr = val ? null : 'La contraseña es obligatoria.';
             setErrors(prev => ({ ...prev, password: pwdErr || '' }));
           }}
           disabled={loading}

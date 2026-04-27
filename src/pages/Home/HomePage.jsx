@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Film, Star, Library } from 'lucide-react';
+import { Sparkles, Film, Star, Library, LucideClockFading, Loader } from 'lucide-react';
 import logo from '../../assets/aura-logo-n.svg';
 import disneyLogo from '../../assets/disney-logo.png';
 import pixarLogo from '../../assets/logo-pixar.png';
@@ -9,10 +9,11 @@ import './HomePage.css';
 
 const HomePage = ({ user }) => {
   const linkTo = user ? "/dashboard" : "/login";
-
+  
+  
   return (
+        
     <main className="expo-home">
-      {/* --- SECCIÓN HERO (TEXTOS ORIGINALES) --- */}
       <section className="hero-flat">
         <div className="hero-brand">
           <img src={logo} alt="Aura Logo" className="logo-static" />

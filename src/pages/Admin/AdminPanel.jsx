@@ -149,15 +149,13 @@ const AdminPanel = ({ setUser }) => { // 👈 Recibimos setUser como prop
     }
   };
 
-  // --- 🔄 SINCRONIZACIÓN AUTOMÁTICA DE TABLAS (Background) ---
+  // --- 🔄 SINCRONIZACIÓN AUTOMÁTICA DE TABLAS (Near Real-Time) ---
   useEffect(() => {
-    // Solo sincronizamos si hay una sesión activa
     const interval = setInterval(() => {
       if (!loading) {
-        // Hacemos el fetch sin activar el spinner de pantalla completa para que sea fluido
         fetchDataForTab(activeTab);
       }
-    }, 20000); // Cada 20 segundos refresca la tabla automáticamente
+    }, 5000); // 🚀 Bajado a 5 segundos para que sea casi instantáneo
 
     return () => clearInterval(interval);
   }, [activeTab, loading]);
